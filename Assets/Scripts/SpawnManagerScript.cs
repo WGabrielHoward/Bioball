@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManagerScript : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public GameObject powerupPrefab;
+    //public GameObject powerupPrefab;
 
     private Vector3 randPos;
     private float spawnRange = 9f;
@@ -75,7 +75,7 @@ public class SpawnManagerScript : MonoBehaviour
         enemyCount = FindObjectsByType<NonPlayerCharacter>(FindObjectsSortMode.None).Length;
         if (enemyCount == 0) 
         {
-            Instantiate(powerupPrefab, GenerateRandomPosition(), powerupPrefab.transform.rotation);
+            //Instantiate(powerupPrefab, GenerateRandomPosition(), powerupPrefab.transform.rotation);
             SpawnEnemyWave(waveNumber*increaseSize); 
         }
     }
