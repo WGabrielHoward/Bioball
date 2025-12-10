@@ -6,4 +6,10 @@ Key Features:
 - programming practices (polymorphism, inheritance, abstraction, encapsulation)
 - Title screen (name input not working)
 - Terrain
+
+ToDo:
+- add jump?
+- points
+- power ups
+- outward force wave
   
