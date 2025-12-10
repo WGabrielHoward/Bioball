@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player View")]
     [SerializeField] private GameObject focalPoint;
-    [SerializeField] private GameObject healthObj;
+    [SerializeField] private TMPro.TextMeshProUGUI healthObj;
 
     [Header("Player Stats")]
     [SerializeField] private float forwardSpeed = 5f;
@@ -91,7 +91,11 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         health -= damage;
-        healthObj.GetComponent<Text>().text = "Health: " + health;
+        healthObj.text = $"Health: {health}";
+        if (health <= 0)
+        {
+            MainManager.ManInstance.GameOver();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -15,9 +15,9 @@ public class MenuUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerName.characterLimit = 12;
         if (PersistentData.Instance != null)
         {
-
             TopScore.text = $"Top Score: {PersistentData.Instance.GetTopName()} {PersistentData.Instance.GetTopPoints()}";
         }
     }

@@ -3,9 +3,10 @@ using System.IO;
 
 public class PersistentData : MonoBehaviour
 {
-    private int topPoints;
-
     public string playerName;
+    // public int playerPoints // by level?
+
+    private int topPoints;
     private string topPointsName;
 
     public static PersistentData Instance;
@@ -81,6 +82,6 @@ public class PersistentData : MonoBehaviour
     {
         topPoints = 0;
         topPointsName = "";
-
+        SaveTopScore();
     }
 }
