@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8994642438892880351}
   - component: {fileID: 4432429246342691353}
   - component: {fileID: 569560181166788909}
-  - component: {fileID: 3474387636267662088}
   - component: {fileID: 1998143353928732840}
+  - component: {fileID: -3429801424896918644}
   m_Layer: 0
-  m_Name: Gem_Gold
+  m_Name: Gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,14 +322,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!33 &3474387636267662088
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6086247130377837589}
-  m_Mesh: {fileID: 0}
 --- !u!64 &1998143353928732840
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -352,3 +344,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &-3429801424896918644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6086247130377837589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1617158d64c5e84cbf8332505140f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  pointValue: 1
