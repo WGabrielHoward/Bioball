@@ -13,13 +13,15 @@ public class LevelCanvas : MonoBehaviour
     public TMPro.TextMeshProUGUI ScoreText;
     public TMPro.TextMeshProUGUI TopScore;
     public TMPro.TextMeshProUGUI HealthText;
-    public GameObject GameOverText;
+    public GameObject GameOverScreen;
+    public GameObject VictoryScreen;
 
     private MainManager pMan;
     //Start is called before the first frame update
     void Start()
     {
-        GameOverText.SetActive(false);
+        GameOverScreen.SetActive(false);
+        VictoryScreen.SetActive(false);
         pMan = MainManager.ManInstance;
     }
 
@@ -30,10 +32,13 @@ public class LevelCanvas : MonoBehaviour
         switch (tmpState)
         {
             case PlayState.gameOver:
-                GameOverText.SetActive(true);
+                GameOverScreen.SetActive(true);
                 break;
             case PlayState.playing:     
-                GameOverText.SetActive(false);  // I'm not a fan of calling this so often.
+                GameOverScreen.SetActive(false);  // I'm not a fan of calling this so often.
+                break;
+            case PlayState.victory:
+                VictoryScreen.SetActive(true);
                 break;
             // Room for other cases
         }

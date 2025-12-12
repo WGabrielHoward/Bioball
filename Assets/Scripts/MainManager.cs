@@ -13,6 +13,7 @@ public enum PlayState
     playing,
     paused,
     gameOver,
+    victory,
     undefined
 }
 
@@ -63,7 +64,7 @@ public class MainManager : MonoBehaviour
         //    }
             
         //}
-        if (GetState()==PlayState.gameOver)
+        if (GetState()==PlayState.gameOver || GetState()==PlayState.victory)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -128,8 +129,15 @@ public class MainManager : MonoBehaviour
     public void GameOver()
     {
         //Pause();
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f;
         SetState(PlayState.gameOver);
+        pData.SaveTopScore();
+    }
+
+    public void Victory()
+    {
+        Time.timeScale = 0f;
+        SetState(PlayState.victory);
         pData.SaveTopScore();
     }
 

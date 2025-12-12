@@ -25,6 +25,10 @@ namespace Scripts.Player
                 playerEffects.EffectsSwitch(collision.gameObject, true);
                 //Hit(collision.gameObject);
             }
+            if (collision.gameObject.CompareTag("Victory"))
+            {
+                MainManager.ManInstance.Victory();
+            }
         }
 
         private void OnCollisionStay(Collision collision)
@@ -52,6 +56,10 @@ namespace Scripts.Player
                 playerEffects.EffectsSwitch(other.gameObject, true);
                 //Hit(other.gameObject);
             }
+            if (other.gameObject.CompareTag("Victory"))
+            {
+                MainManager.ManInstance.Victory();
+            }
         }
 
         private void OnTriggerStay(Collider other)
@@ -62,6 +70,7 @@ namespace Scripts.Player
                 int damage = other.gameObject.GetComponent<NonPlayerCharacter>().GetDamage();
                 this.GetComponent<PlayerStats>().Damage(damage);
             }
+            
         }
 
         private void OnTriggerExit(Collider other)
