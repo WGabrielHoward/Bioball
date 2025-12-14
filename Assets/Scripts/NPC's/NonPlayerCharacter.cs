@@ -14,15 +14,15 @@ namespace Scripts.NPC
 
     public class NonPlayerCharacter : MonoBehaviour
     {
-        private Rigidbody rbThis;
-        [SerializeField] protected GameObject target;
+        protected Rigidbody rbThis;
+        [SerializeField] public GameObject target;
         [SerializeField] protected float forceToTarget = 1;
         //public virtual Effect effectType;
         [SerializeField] protected int health = 10;
         [SerializeField] protected int damage = 0;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        protected virtual void Start()
         {
             rbThis = gameObject.GetComponent<Rigidbody>();
             //if (target == null)

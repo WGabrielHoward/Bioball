@@ -16,13 +16,13 @@ public class LevelCanvas : MonoBehaviour
     public GameObject GameOverScreen;
     public GameObject VictoryScreen;
 
-    private MainManager pMan;
+    private LevelManager pMan;
     //Start is called before the first frame update
     void Start()
     {
         GameOverScreen.SetActive(false);
         VictoryScreen.SetActive(false);
-        pMan = MainManager.ManInstance;
+        pMan = LevelManager.ManInstance;
     }
 
     // change the game over update to a listerner or event (check that it is actually better)

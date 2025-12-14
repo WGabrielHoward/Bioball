@@ -31,6 +31,11 @@ public class MenuUI : MonoBehaviour
         SceneManager.LoadScene("Scene_0");
     }
 
+    public void ClearMemory()
+    {
+        PersistentData.Instance.ClearTopScore();
+    }
+
     public void Exit()
     {
         PersistentData.Instance.SaveTopScore();     // enable this to autoSave any changes, else it will go with whatever was last saved

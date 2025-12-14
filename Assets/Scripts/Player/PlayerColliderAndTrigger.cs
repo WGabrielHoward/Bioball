@@ -27,7 +27,7 @@ namespace Scripts.Player
             }
             if (collision.gameObject.CompareTag("Victory"))
             {
-                MainManager.ManInstance.Victory();
+                LevelManager.ManInstance.Victory();
             }
         }
 
@@ -58,7 +58,7 @@ namespace Scripts.Player
             }
             if (other.gameObject.CompareTag("Victory"))
             {
-                MainManager.ManInstance.Victory();
+                LevelManager.ManInstance.Victory();
             }
         }
 

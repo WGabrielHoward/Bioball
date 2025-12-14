@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Scripts.Player
 {
-    public class RotateCamera : MonoBehaviour
+    public class RotatePlayerCamera : MonoBehaviour
     {
 
         private float horizontalInput;
-        [SerializeField] private float rotationSpeed;
+        [SerializeField] private float rotationSpeed=200;
         [SerializeField] private GameObject focalPoint;
 
 

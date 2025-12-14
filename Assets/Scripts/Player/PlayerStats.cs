@@ -39,7 +39,7 @@ namespace Scripts.Player
             UpdateHealthText();
             if (health <= 0)
             {
-                MainManager.ManInstance.GameOver();
+                LevelManager.ManInstance.GameOver();
             }
         }
 
@@ -49,7 +49,7 @@ namespace Scripts.Player
             UpdateHealthText();
             if (health <= 0)
             {
-                MainManager.ManInstance.GameOver();
+                LevelManager.ManInstance.GameOver();
             }
         }
 

@@ -6,6 +6,7 @@ namespace Scripts.NPC
 {
     public class EnemyBurns : Enemy
     {
+        
 
         public override Effect GetEffect()
         {

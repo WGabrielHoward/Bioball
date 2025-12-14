@@ -48,9 +48,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 744392609835904184, guid: d6c39c32343a65d47afa53c2aed07555, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 854097267668045109, guid: d6c39c32343a65d47afa53c2aed07555, type: 3}
       propertyPath: m_Name
-      value: EnemySphere
+      value: EnemyLSphere
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

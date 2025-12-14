@@ -17,15 +17,17 @@ public enum PlayState
     undefined
 }
 
-public class MainManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     private int m_Points;       // Should I move this to the player?
     private static PlayState state;
 
     public static PersistentData pData;
-    public static MainManager ManInstance;
+    public static LevelManager ManInstance;
 
     private LevelCanvas levelCanvas;
+    private int buildIndex;
+    private int nextSceneIndex;
 
     private void Awake()
     {
@@ -50,51 +52,62 @@ public class MainManager : MonoBehaviour
 
         levelCanvas = FindAnyObjectByType<LevelCanvas>();
         
-        UpdateTopScore();   
+        UpdateTopScore();
+        buildIndex = SceneManager.GetActiveScene().buildIndex;
+        nextSceneIndex = buildIndex + 1;
     }
 
     private void Update()
     {
-        //// Only usefull if you intend to wait till space to start
-        //if (!m_Started)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.Space))
-        //    {
-        //        m_Started = true;
-        //    }
-            
-        //}
-        if (GetState()==PlayState.gameOver || GetState()==PlayState.victory)
+        switch (state)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                Play();
-            }
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                SceneManager.LoadScene("TitleScreen");
-                //Play();
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                pData.ClearTopScore();
-            }
-        }
-        else 
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                if (GetState() == PlayState.paused)
+            case PlayState.gameOver:
+                if (Input.GetKeyDown(KeyCode.R))
                 {
+                    SceneManager.LoadScene(buildIndex); // Restart this level
                     Play();
                 }
-                else
+                if (Input.GetKeyDown(KeyCode.M))
                 {
-                    Pause();
+                    SceneManager.LoadScene("TitleScreen"); // 0, should be TitleScreen
+                    Play();
                 }
-            }
+                break;
+            case PlayState.victory:
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+                    {
+                        SceneManager.LoadScene(nextSceneIndex);
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene(0);  // 0, should be TitleScreen
+                    }
+                    Play();
+                }
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    SceneManager.LoadScene(buildIndex); // Restart this level
+                    Play();
+                }
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    SceneManager.LoadScene("TitleScreen"); // 0, should be TitleScreen
+                    Play();
+                }
+                break;
+            case PlayState.playing:
+                if (Input.GetKeyDown(KeyCode.P))
+                { Pause(); }
+                break;
+            case PlayState.paused:
+                if (Input.GetKeyDown(KeyCode.P))
+                { Play(); }
+                break;
+            
         }
+        
     }
 
     private void SetState(PlayState newState)

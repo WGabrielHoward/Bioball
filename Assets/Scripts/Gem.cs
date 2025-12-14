@@ -17,7 +17,7 @@ public class Gem : MonoBehaviour
         {
             UnityEngine.Debug.Log("Destroy the Gem!!!!");
             //onDestroyed.Invoke(pointValue);
-            MainManager.ManInstance.AddPoints(pointValue);
+            LevelManager.ManInstance.AddPoints(pointValue);
             Destroy(gameObject);
         }
 
