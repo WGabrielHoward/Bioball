@@ -78,7 +78,7 @@ public class LevelManager : MonoBehaviour
                 {
                     if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
                     {
-                        SceneManager.LoadScene(nextSceneIndex);
+                        SceneManager.LoadScene(nextSceneIndex); // Next Level
                     }
                     else
                     {

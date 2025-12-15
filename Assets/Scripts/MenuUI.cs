@@ -9,8 +9,11 @@ using UnityEngine.UI;
 public class MenuUI : MonoBehaviour
 {
 
-    public TMPro.TextMeshProUGUI TopScore;
-    public TMPro.TMP_InputField playerName;
+    [SerializeField] private TMPro.TextMeshProUGUI TopScore;
+    [SerializeField] private TMPro.TMP_InputField playerName;
+    [SerializeField] private GameObject hiddenObj;
+    private bool hidden;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,8 +21,10 @@ public class MenuUI : MonoBehaviour
         playerName.characterLimit = 12;
         if (PersistentData.Instance != null)
         {
-            TopScore.text = $"Top Score: {PersistentData.Instance.GetTopName()} {PersistentData.Instance.GetTopPoints()}";
+            TopScoreUpdate();
         }
+        hiddenObj.SetActive(false);
+        hidden = true;
     }
 
     public void StartPlay()
@@ -31,10 +36,37 @@ public class MenuUI : MonoBehaviour
         SceneManager.LoadScene("Scene_0");
     }
 
+    public void TopScoreUpdate()
+    {
+        //pMan.Dump();
+        TopScore.text = $"Top Score: {PersistentData.Instance.GetTopName()} {PersistentData.Instance.GetTopPoints()}";
+    }
+
     public void ClearMemory()
     {
         PersistentData.Instance.ClearTopScore();
+        TopScoreUpdate();
     }
+
+    public void HideOrReveal()
+    {
+        if (hiddenObj)
+        {
+            if (hidden)
+            {
+                hiddenObj.SetActive(hidden);
+                hidden = false;
+            }
+            else
+            {
+                hiddenObj.SetActive(hidden);
+                hidden = true;
+            }
+
+        }
+    }
+
+   
 
     public void Exit()
     {
