@@ -43,21 +43,21 @@ namespace Scripts.Player
 
         }
 
-        public void EffectsSwitch(GameObject hitObj, bool setting)
+        public void EffectsSwitch(GameObject hitObj, bool setting)  
         {
-            Effect tmpEffect = hitObj.GetComponent<NonPlayerCharacter>().GetEffect();
+            EffectScript.Effect tmpEffect = hitObj.GetComponent<NonPlayerCharacter>().GetEffect();  //Restructure so it works for any hit object not just NPC's
             switch (tmpEffect)
             {
-                case Effect.heal:
+                case EffectScript.Effect.heal:
                     healing = setting;
                     break;
-                case Effect.poison:
+                case EffectScript.Effect.poison:
                     poisoned = setting;
                     break;
-                case Effect.burn:
+                case EffectScript.Effect.burn:
                     burning = setting;
                     break;
-                case Effect.freeze:
+                case EffectScript.Effect.freeze:
                     freezing = setting;
                     break;
             }

@@ -7,9 +7,12 @@ namespace Scripts.NPC
     public class Healer : NonPlayerCharacter
     {
 
-        public override Effect GetEffect()
+        protected override void Start()
         {
-            return Effect.heal;
+            rbThis = gameObject.GetComponent<Rigidbody>();
+            //this.target = GameObject.Find("Player");
+            SetEffect(EffectScript.Effect.heal);
         }
+
     }
 }

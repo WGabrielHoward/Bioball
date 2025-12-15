@@ -6,9 +6,12 @@ namespace Scripts.NPC
     public class EnemyPoisons : Enemy
     {
 
-        public override Effect GetEffect()
+
+        protected override void Start()
         {
-            return Effect.poison;
+            rbThis = gameObject.GetComponent<Rigidbody>();
+            this.target = GameObject.Find("Player");
+            SetEffect(EffectScript.Effect.poison);
         }
     }
 }

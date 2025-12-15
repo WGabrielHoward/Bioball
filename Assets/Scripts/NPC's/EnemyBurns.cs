@@ -6,11 +6,12 @@ namespace Scripts.NPC
 {
     public class EnemyBurns : Enemy
     {
-        
 
-        public override Effect GetEffect()
+        protected override void Start()
         {
-            return Effect.burn;
+            rbThis = gameObject.GetComponent<Rigidbody>();
+            this.target = GameObject.Find("Player");
+            SetEffect(EffectScript.Effect.burn);
         }
     }
 }

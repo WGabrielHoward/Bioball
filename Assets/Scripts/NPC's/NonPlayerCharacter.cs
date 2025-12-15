@@ -3,15 +3,7 @@ using UnityEngine;
 
 namespace Scripts.NPC
 {
-    public enum Effect
-    {
-        burn,
-        freeze,
-        poison,
-        heal,
-        unnassigned
-    }
-
+  
     public class NonPlayerCharacter : MonoBehaviour
     {
         protected Rigidbody rbThis;
@@ -20,15 +12,13 @@ namespace Scripts.NPC
         //public virtual Effect effectType;
         [SerializeField] protected int health = 10;
         [SerializeField] protected int damage = 0;
+        [SerializeField] protected EffectScript.Effect thisEffect;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected virtual void Start()
         {
             rbThis = gameObject.GetComponent<Rigidbody>();
-            //if (target == null)
-            //{
-            //    target = this.gameObject;
-            //}
+            
             
         }
 
@@ -63,9 +53,13 @@ namespace Scripts.NPC
             Destroy(gameObject);
         }
 
-        public virtual Effect GetEffect()
+        public virtual EffectScript.Effect GetEffect()
         {
-            return Effect.unnassigned;
+            return thisEffect;
+        }
+        public virtual void SetEffect(EffectScript.Effect newEffect)
+        {
+            thisEffect = newEffect;
         }
 
         public virtual int GetDamage()

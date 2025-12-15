@@ -5,10 +5,13 @@ namespace Scripts.NPC
 {
     public class EnemyFreezes : Enemy
     {
-        
-        public override Effect GetEffect()
+
+
+        protected override void Start()
         {
-            return Effect.freeze;
+            rbThis = gameObject.GetComponent<Rigidbody>();
+            this.target = GameObject.Find("Player");
+            SetEffect(EffectScript.Effect.freeze);
         }
     }
 }
