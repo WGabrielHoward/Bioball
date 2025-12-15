@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEditorInternal;
+
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public enum PlayState
 {
@@ -19,7 +14,7 @@ public enum PlayState
 
 public class LevelManager : MonoBehaviour
 {
-    private int m_Points;       // Should I move this to the player?
+    private int m_Points;       
     private static PlayState state;
 
     public static PersistentData pData;
@@ -139,17 +134,27 @@ public class LevelManager : MonoBehaviour
         return topScoreText;
     }
 
+    private void TimeStop()
+    {
+        Time.timeScale = 0f;
+    }
+
+    private void TimeStart()
+    {
+        Time.timeScale = 1f;
+    }
+
     public void GameOver()
     {
         //Pause();
-        Time.timeScale = 0f;
+        TimeStop();
         SetState(PlayState.gameOver);
         pData.SaveTopScore();
     }
 
     public void Victory()
     {
-        Time.timeScale = 0f;
+        TimeStop();
         SetState(PlayState.victory);
         pData.SaveTopScore();
     }
@@ -162,13 +167,13 @@ public class LevelManager : MonoBehaviour
     public void Pause()
     {
         SetState(PlayState.paused);
-        Time.timeScale = 0f;
+        TimeStop();
     }
 
     public void Play()
     {
         SetState(PlayState.playing);
-        Time.timeScale = 1f;
+        TimeStart();
     }
 
     public void Dump()
