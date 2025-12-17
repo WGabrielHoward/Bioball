@@ -21,7 +21,18 @@ public class Gem : MonoBehaviour
         }
 
     }
-   
 
-    
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //onDestroyed.Invoke(pointValue);
+            LevelManager.ManInstance.AddPoints(pointValue);
+            Destroy(gameObject);
+        }
+
+    }
+
+
+
 }

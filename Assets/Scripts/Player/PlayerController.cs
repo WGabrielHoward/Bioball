@@ -31,7 +31,7 @@ namespace Scripts.Player
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
 
             verticalInput = Input.GetAxis("Vertical");

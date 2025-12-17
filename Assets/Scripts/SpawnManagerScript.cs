@@ -10,13 +10,13 @@ public class SpawnManagerScript : MonoBehaviour
     //public GameObject powerupPrefab;
 
     private Vector3 randPos;
-    private float spawnRange = 9f;
+    private float spawnRange = 40f;
     public float startDelay = 2f;
     public float waveDelay = 50f;
     public int waveCount = 5;
     public int increaseSize = 5;
-    public int waveNumber = 1;
-    public int enemyCount;
+    private int waveNumber = 1;
+    private int enemyCount;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -67,18 +67,22 @@ public class SpawnManagerScript : MonoBehaviour
     {
         float spawnPosX = Random.Range(-spawnRange, spawnRange);
         float spawnPosZ = Random.Range(-spawnRange, spawnRange);
-        Vector3 randPos = new Vector3(spawnPosX, 0, spawnPosZ);
+        Vector3 randPos = new Vector3(spawnPosX, 3, spawnPosZ);
         return randPos;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        enemyCount = FindObjectsByType<NonPlayerCharacter>(FindObjectsSortMode.None).Length;
-        if (enemyCount == 0) 
+        //enemyCount = FindObjectsByType<NonPlayerCharacter>(FindObjectsSortMode.None).Length;
+        //if (enemyCount == 0) 
+        //{
+        //    //Instantiate(powerupPrefab, GenerateRandomPosition(), powerupPrefab.transform.rotation);
+        //    SpawnEnemyWave(waveNumber*increaseSize); 
+        //}
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            //Instantiate(powerupPrefab, GenerateRandomPosition(), powerupPrefab.transform.rotation);
-            SpawnEnemyWave(waveNumber*increaseSize); 
+            TriggerWaves();
         }
     }
 }

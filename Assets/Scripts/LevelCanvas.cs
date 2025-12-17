@@ -21,7 +21,7 @@ public class LevelCanvas : MonoBehaviour
     }
 
     // change the game over update to a listerner or event (check that it is actually better)
-    void LateUpdate()
+    void Update()
     {
         PlayState tmpState = pMan.GetState();
         switch (tmpState)

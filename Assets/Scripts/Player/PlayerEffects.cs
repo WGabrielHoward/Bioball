@@ -35,7 +35,7 @@ namespace Scripts.Player
         }
 
         // Update is called once per frame
-        void LateUpdate()
+        void FixedUpdate()
         {
             SetEffects();
         }
