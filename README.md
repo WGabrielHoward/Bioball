@@ -15,3 +15,9 @@ ToDo:
 - power ups
 - outward force wave
   
+Credits:
+Programming and Development - William Gabriel Howard
+
+Using:
+Art Asset - YughuesFreeGroundMaterials
+
