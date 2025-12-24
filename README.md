@@ -33,7 +33,7 @@ A 3D rolling survival game built in Unity where you control a plant sphere, dodg
 - Iterative WebGL deployment
 
 ### How to Run Locally
-1. Clone: `git clone https://github.com/WGabrielHoward/Tumbleweed-Tales.git`
+1. Clone: `git clone https://github.com/WGabrielHoward/Bioball.git`
 2. Open in Unity Hub (6000.2.f1 or compatible)
 3. Load the main scene and press Play!
 
