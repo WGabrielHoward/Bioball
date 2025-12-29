@@ -33,7 +33,7 @@ public class TitleMenuUI : MonoBehaviour
         {
             PersistentData.Instance.playerName = playerName.text.ToString();
         }
-        SceneManager.LoadScene("Scene_0");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
     public void TopScoreUpdate()
