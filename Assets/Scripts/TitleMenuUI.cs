@@ -19,6 +19,7 @@ public class TitleMenuUI : MonoBehaviour
         playerName.characterLimit = 12;
         if (PersistentData.Instance != null)
         {
+            PersistentData.Instance.TopScoreUpdate();
             TopScoreUpdate();
             ClearTotalScore();
         }

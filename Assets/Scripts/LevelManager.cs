@@ -97,6 +97,7 @@ public class LevelManager : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("TitleScreen"); // 0, should be TitleScreen
+        pData.TopScoreUpdate();
         Play();
     }
 
@@ -112,10 +113,12 @@ public class LevelManager : MonoBehaviour
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(nextSceneIndex); // Next Level
+            pData.TopScoreUpdate();
         }
         else
         {
             SceneManager.LoadScene(0);  // 0, should be TitleScreen
+            pData.TopScoreUpdate();
         }
         Play();
     }

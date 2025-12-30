@@ -56,6 +56,7 @@ public class PersistentData : MonoBehaviour
         {
             topPoints = playerTotalPoints;
             topPointsName = playerName;
+            SaveTopScore();
         }
     }
 
