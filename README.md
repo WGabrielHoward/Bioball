@@ -4,8 +4,8 @@ A 3D rolling survival game built in Unity where you control a plant sphere, dodg
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Play it now in your browser:**  
-[Play Bioball on Unity Play](https://play.unity.com/en/games/3d1ab859-707c-44e6-90b9-8dddc777cf41/bioball)
-[Play Bioball on itch.io](https://mercurymerc8.itch.io/bioball)
+[Play Bioball on Unity Play](https://play.unity.com/en/games/3d1ab859-707c-44e6-90b9-8dddc777cf41/bioball)  
+ [Play Bioball on itch.io](https://mercurymerc8.itch.io/bioball)
 
 <!--gameplay GIF -->
 <img src="Assets/gameplay/Bioball_v1.gif" alt="Gameplay GIF" width="600"/>
