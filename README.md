@@ -1,6 +1,7 @@
 # Bioball
 
 A 3D rolling survival game built in Unity where you control a plant sphere, dodging enemies, collecting gems, and racing to reach the next level.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Play it now in your browser:**  
 [Play Bioball on Unity Play](https://play.unity.com/en/games/3d1ab859-707c-44e6-90b9-8dddc777cf41/tumbleweed-tales)
@@ -43,7 +44,7 @@ A 3D rolling survival game built in Unity where you control a plant sphere, dodg
 <img src="Assets/gameplay/screenshot1.png" alt="ClearMemoryScreenshot" width="400"/>
 
 ### License
-This repository is licensed under the **GNU GPL-3.0 License**, with the following exception:
-- **Lore and Backstory Files**: All files located in the `lore/` directory are copyrighted and are not covered under the GNU GPL-3.0 License. Redistribution, modification, or use of these files is prohibited without explicit written permission. For details, see `lore/COPYRIGHT.md`.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This project is open source and available under the [MIT License](LICENSE).
 
 Built by [William G. Howard](https://www.linkedin.com/in/william-g-howard) while studying Game Programming at DePaul University.
