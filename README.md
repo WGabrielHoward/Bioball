@@ -6,7 +6,7 @@ A 3D rolling survival game built in Unity where you control a plant sphere, dodg
 [Play Bioball on Unity Play](https://play.unity.com/en/games/3d1ab859-707c-44e6-90b9-8dddc777cf41/tumbleweed-tales)
 
 <!-- Replace with gameplay GIF -->
-![Gameplay GIF](Assets/gameplay/Bioball_v1.gif)
+<img src="Assets/gameplay/Bioball_v1.gif" alt="Gameplay GIF" width="600"/>
 
 ### Gameplay & Controls
 - **Objective**: Roll towards the goal, collect gems for points, avoid enemies, and reach the goal to advance levels.
