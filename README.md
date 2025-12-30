@@ -38,9 +38,9 @@ A 3D rolling survival game built in Unity where you control a plant sphere, dodg
 3. Load the main scene and press Play!
 
 ### Screenshots
-![Screenshot 1](Assets/gameplay/screenshot3.png)  
-![Screenshot 2](Assets/gameplay/screenshot2.png)  
-![Screenshot 3](Assets/gameplay/screenshot1.png)
+<img src="Assets/gameplay/screenshot3.png" alt="FreezingScreenshot" width="400"/>
+<img src="Assets/gameplay/screenshot2.png" alt="PauseScreenshot" width="400"/>
+<img src="Assets/gameplay/screenshot1.png" alt="ClearMemoryScreenshot" width="400"/>
 
 ### License
 This repository is licensed under the **GNU GPL-3.0 License**, with the following exception:
