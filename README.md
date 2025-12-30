@@ -47,4 +47,9 @@ A 3D rolling survival game built in Unity where you control a plant sphere, dodg
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 This project is open source and available under the [MIT License](LICENSE).
 
+### Credits & Assets
+- Ground materials: [Yughues Free Ground Materials](https://assetstore.unity.com/packages/2d/textures-materials/nature/yughues-free-ground-materials-13001) by Nobiax / Yughues  
+  Licensed under the Standard Unity Asset Store EULA.
+Thank you to the creators for these excellent free resources!
+
 Built by [William G. Howard](https://www.linkedin.com/in/william-g-howard) while studying Game Programming at DePaul University.
