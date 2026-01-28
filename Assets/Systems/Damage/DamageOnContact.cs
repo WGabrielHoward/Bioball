@@ -25,11 +25,6 @@ namespace Assets.Systems.Damage
 
         void OnCollisionEnter(Collision other)
         {
-            //if (other.gameObject.TryGetComponent<IDamageable>(out var target))
-            //{
-            //    Debug.Log("DamageOnContact triggered for: " + target);
-            //    damageSystem.ApplyDamageOverTime(target, damagePerTick, tickRate, lingerDuration);
-            //}
 
             if (!other.gameObject.TryGetComponent<IDamageable>(out var target))
             {

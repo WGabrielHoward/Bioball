@@ -11,14 +11,12 @@ namespace Scripts.NPC
         [SerializeField] public GameObject target;
         [SerializeField] protected float forceToTarget = 1;
         [SerializeField] protected int health = 10;
-        [SerializeField] protected EffectScript thisEffect;
         [SerializeField] private Element element = Element.None;
         public Element Element => element;
 
         void Awake()
         {
             rbThis = gameObject.GetComponent<Rigidbody>();
-            thisEffect = gameObject.AddComponent<EffectScript>();
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,17 +55,7 @@ namespace Scripts.NPC
         {
             Destroy(gameObject);
         }
-
-        public virtual Effect GetEffect()
-        {
-            return thisEffect.GetEffect();
-        }
-        public virtual void SetEffect(Effect newEffect)
-        {
-            thisEffect.SetEffect(newEffect);
-        }
-
-       
+               
 
         public void TakeDamage(int damage)
         {

@@ -22,9 +22,7 @@ public class SpawnManagerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //InvokeRepeating("SpawnEnemy", 1f, 3f);
-        //SpawnEnemyWave(3);
-        //StartCoroutine(RepeatedSpawnWaves(startDelay, waveDelay, waveStartSize, waveCount, increaseSize));
+        
     }
 
     public void TriggerWaves()
@@ -35,10 +33,7 @@ public class SpawnManagerScript : MonoBehaviour
     IEnumerator RepeatedSpawnWaves(float delayStart, float rate, int waveStartSize, int waveCount, int sizeIncrease)
     {
         yield return new WaitForSeconds(delayStart);
-        //while (true)
-        //{
-        //    // one option for continuous
-        //}
+        
         for(int i = 0; i < waveCount; i++)
         {
             SpawnEnemyWave(waveStartSize*sizeIncrease);
@@ -74,12 +69,7 @@ public class SpawnManagerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //enemyCount = FindObjectsByType<NonPlayerCharacter>(FindObjectsSortMode.None).Length;
-        //if (enemyCount == 0) 
-        //{
-        //    //Instantiate(powerupPrefab, GenerateRandomPosition(), powerupPrefab.transform.rotation);
-        //    SpawnEnemyWave(waveNumber*increaseSize); 
-        //}
+        
         if (Input.GetKeyDown(KeyCode.L))
         {
             TriggerWaves();

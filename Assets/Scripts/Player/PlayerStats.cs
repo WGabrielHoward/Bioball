@@ -11,12 +11,12 @@ namespace Scripts.Player
     {
         private PlayerScriptManager playSMan;
         private PlayerController playerController;
-        [SerializeField] protected Element element;
+        protected Element element;
         public Element Element => element;
 
         [Header("Player Stats")]
-        [SerializeField] private float forwardSpeed;
-        [SerializeField] private int health;
+        private float forwardSpeed;
+        private int health;
 
         LevelCanvas levelCanvas;
 
