@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 744392609835904184}
   - component: {fileID: 5257056113352207598}
   - component: {fileID: 1888021200970485279}
-  - component: {fileID: 2987254804073399582}
   - component: {fileID: 7044599390107545259}
+  - component: {fileID: 7968825229868341830}
   m_Layer: 0
   m_Name: EnemyL
   m_TagString: NPC
@@ -119,22 +119,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2987254804073399582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854097267668045109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
-  element: 3
-  damagePerTick: 1
-  tickRate: 1
-  lingerDuration: 0
 --- !u!114 &7044599390107545259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,5 +134,20 @@ MonoBehaviour:
   target: {fileID: 0}
   forceToTarget: 1
   health: 10
-  thisEffect: {fileID: 0}
   element: 3
+--- !u!114 &7968825229868341830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854097267668045109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
+  element: 3
+  damagePerTick: 1
+  tickRate: 1
+  lingerDuration: 0

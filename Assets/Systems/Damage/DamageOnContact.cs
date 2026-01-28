@@ -54,6 +54,36 @@ namespace Assets.Systems.Damage
         }
 
 
+        void OnTriggerEnter(Collider other)
+        {
+
+            if (!other.gameObject.TryGetComponent<IDamageable>(out var target))
+            {
+                return;
+            }
+
+            if (!TryGetComponent<IDamageSource>(out var source))
+            {
+                return;
+            }
+
+            // Same-element immunity
+            if (target.Element == source.Element)
+            {
+                return;
+            }
+
+            damageSystem.ApplyDamageOverTime(target, source.DamagePerTick, source.TickRate, lingerDuration);
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent<IDamageable>(out var target))
+            {
+                damageSystem.StartLinger(target, lingerDuration);
+            }
+        }
+
 
     }
 }

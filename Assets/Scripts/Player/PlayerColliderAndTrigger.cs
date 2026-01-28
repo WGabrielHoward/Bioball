@@ -21,11 +21,6 @@ namespace Scripts.Player
             playerEffects = playSMan.GetPlayerEffects();
         }
 
-        public void SetEffectScript(PlayerEffects effectScript)
-        {
-            playerEffects = effectScript;
-        }
-
 
         private void OnCollisionEnter(Collision other)
         {
