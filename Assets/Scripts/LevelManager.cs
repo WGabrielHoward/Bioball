@@ -1,21 +1,13 @@
 
+using Assets.Systems.GameState;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum PlayState
-{
-    waiting,
-    playing,
-    paused,
-    gameOver,
-    victory,
-    undefined
-}
 
 public class LevelManager : MonoBehaviour
 {
-    private int m_Points;       
-    private static PlayState state;
+    private int m_Points;
+    private GameState lastState;
 
     public static PersistentData pData;
     public static LevelManager ManInstance;
@@ -35,15 +27,15 @@ public class LevelManager : MonoBehaviour
         m_Points = 0;
 
         ManInstance = this;
-        state = PlayState.waiting;
         pData = PersistentData.Instance;
-    }
+        lastState = GameState.Undefined;
+}
 
     // Start is called before the first frame update
     void Start()
     {
         m_Points = 0;
-        state = PlayState.playing;
+        GameStateSystem.Instance.TriggerPlay();
 
         levelCanvas = FindAnyObjectByType<LevelCanvas>();
 
@@ -55,56 +47,33 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        switch (state)
+        var current = GameStateSystem.Instance.CurrentState;
+
+        if (current != lastState)
         {
-            case PlayState.gameOver:
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    RestartLevel();
-                }
-                if (Input.GetKeyDown(KeyCode.M))
-                {
-                    MainMenu();
-                }
-                break;
-            case PlayState.victory:
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    NextLevel();
-                }
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    RestartLevel();
-                }
-                if (Input.GetKeyDown(KeyCode.M))
-                {
-                    MainMenu();
-                }
-                break;
-            case PlayState.playing:
-                if (Input.GetKeyDown(KeyCode.P))
-                { Pause(); }
-                break;
-            case PlayState.paused:
-                if (Input.GetKeyDown(KeyCode.P))
-                { Play(); }
-                break;
-            
+            OnGameStateChanged(lastState, current);
+            lastState = current;
         }
-        
+        HandleStateInput(current);
+
+    }
+
+    public void Play()
+    {
+        GameStateSystem.Instance.TriggerPlay();
     }
 
     public void MainMenu()
     {
         SceneManager.LoadScene("TitleScreen"); // 0, should be TitleScreen
         pData.TopScoreUpdate();
-        Play();
+        GameStateSystem.Instance.TriggerPlay();
     }
 
     public void RestartLevel()
     {
         SceneManager.LoadScene(buildIndex); // Restart this level
-        Play();
+        GameStateSystem.Instance.TriggerPlay();
     }
 
     public void NextLevel()
@@ -120,14 +89,10 @@ public class LevelManager : MonoBehaviour
             SceneManager.LoadScene(0);  // 0, should be TitleScreen
             pData.TopScoreUpdate();
         }
-        Play();
+        GameStateSystem.Instance.TriggerPlay();
     }
 
-    private void SetState(PlayState newState)
-    {
-        state = newState;
-    }
-
+    
     public void AddPoints(int points)
     {
         m_Points += points;
@@ -173,51 +138,100 @@ public class LevelManager : MonoBehaviour
         return topScoreText;
     }
 
-    private void TimeStop()
-    {
-        Time.timeScale = 0f;
-    }
-
-    private void TimeStart()
-    {
-        Time.timeScale = 1f;
-    }
-
-    public void GameOver()
-    {
-        //Pause();
-        TimeStop();
-        SetState(PlayState.gameOver);
-        pData.SaveTopScore();
-    }
-
-    public void Victory()
-    {
-        TimeStop();
-        SetState(PlayState.victory);
-        pData.SaveTopScore();
-    }
-
-    public PlayState GetState()
-    {
-        return state;
-    }
-
-    public void Pause()
-    {
-        SetState(PlayState.paused);
-        TimeStop();
-    }
-
-    public void Play()
-    {
-        SetState(PlayState.playing);
-        TimeStart();
-    }
 
     public void Dump()
     {
         UnityEngine.Debug.Log("mainManager Exists!");
 
     }
+
+    void OnGameStateChanged(GameState from, GameState to)
+    {
+        switch (to)
+        {
+            case GameState.Playing:
+                Time.timeScale = 1f;
+                break;
+
+            case GameState.Pause:
+                Time.timeScale = 0f;
+                break;
+
+            case GameState.Defeat:
+                Time.timeScale = 0f;
+                pData.SaveTopScore();
+                break;
+
+            case GameState.Victory:
+                Time.timeScale = 0f;
+                pData.SaveTopScore();
+                break;
+        }
+    }
+
+    void HandleStateInput(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.Playing:
+                if (Input.GetKeyDown(KeyCode.P))
+                    GameStateSystem.Instance.TriggerPause();
+                break;
+
+            case GameState.Pause:
+                HandlePauseInput();
+                break;
+            case GameState.Defeat:
+                HandleGameOverInput();                
+                break;
+            case GameState.Victory:
+                HandleVictoryInput();
+                break;
+        }
+    }
+
+    void HandlePauseInput()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            GameStateSystem.Instance.TriggerPlay();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            MainMenu();
+        }
+    }
+
+    void HandleGameOverInput()
+    {        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            MainMenu();
+        }
+    }
+    void HandleVictoryInput()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            MainMenu();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            NextLevel();
+        }
+    }
+
+
 }

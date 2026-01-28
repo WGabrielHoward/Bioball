@@ -4,6 +4,7 @@ using UnityEngine;
 using Scripts.NPC;
 using Assets.Systems.Damage;
 using Unity.Properties;
+using Assets.Systems.GameState;
 
 namespace Scripts.Player
 {
@@ -73,7 +74,7 @@ namespace Scripts.Player
             UpdateHealthText();
             if (health <= 0)
             {
-                LevelManager.ManInstance.GameOver();
+                GameStateSystem.Instance.TriggerDefeat();
             }
         }
 

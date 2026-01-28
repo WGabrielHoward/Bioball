@@ -1,6 +1,7 @@
 
 using System.Net.NetworkInformation;
 using UnityEngine;
+using Assets.Systems.GameState;
 
 //[DefaultExecutionOrder(500)]
 public class LevelCanvas : MonoBehaviour
@@ -17,7 +18,7 @@ public class LevelCanvas : MonoBehaviour
     public GameObject PauseScreen;
 
     private LevelManager pMan;
-    private PlayState lastState;
+    private GameState lastState;
     //Start is called before the first frame update
     void Start()
     {
@@ -28,31 +29,31 @@ public class LevelCanvas : MonoBehaviour
     // change the game over update to a listerner or event (check that it is actually better)
     void Update()
     {
-        PlayState tmpState = pMan.GetState();
-        if (tmpState != lastState)
+        GameState currentState = GameStateSystem.Instance.CurrentState;
+        if (currentState != lastState)
         {
-            ChangePlayState(tmpState);
-            lastState = tmpState;
+            ChangePlayState(currentState);
+            lastState = currentState;
         }
     }
 
     // Now we only call the screen setActives when state is changed
-    private void ChangePlayState(PlayState newState)
+    private void ChangePlayState(GameState newState)
     {
         switch (newState)
         {
-            case PlayState.gameOver:
+            case GameState.Defeat:
                 GameOverScreen.SetActive(true);
                 TotalScoreText.gameObject.SetActive(true);
                 break;
-            case PlayState.playing:
+            case GameState.Playing:
                 PlayingSetup();
                 break;
-            case PlayState.victory:
+            case GameState.Victory:
                 VictoryScreen.SetActive(true);
                 NotPlayingSetup();
                 break;
-            case PlayState.paused:
+            case GameState.Pause:
                 PauseScreen.SetActive(true);
                 NotPlayingSetup();
                 break;

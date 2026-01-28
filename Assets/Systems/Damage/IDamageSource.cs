@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Systems.Damage
 {
@@ -11,5 +12,7 @@ namespace Assets.Systems.Damage
         Element Element { get; }
         int DamagePerTick { get; }
         float TickRate { get; }
+        GameObject Owner { get; }
     }
+
 }

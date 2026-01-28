@@ -91,6 +91,8 @@ namespace Assets.Systems.Damage
             if (effect != null)
                 activeEffects.Remove(effect);
         }
+
+       
     }
 
 }

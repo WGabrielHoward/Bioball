@@ -3157,6 +3157,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2765110913520413685, guid: caa0a79796530044f98f402f6f9e39a2, type: 3}
+      propertyPath: m_text
+      value: Play - P
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394343134111323391, guid: caa0a79796530044f98f402f6f9e39a2, type: 3}
+      propertyPath: m_text
+      value: Main Menu - M
+      objectReference: {fileID: 0}
     - target: {fileID: 4200355385967741619, guid: caa0a79796530044f98f402f6f9e39a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 503.74997
@@ -3197,9 +3205,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9037484373590269286, guid: caa0a79796530044f98f402f6f9e39a2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 5174600395847629464, guid: caa0a79796530044f98f402f6f9e39a2, type: 3}
+      propertyPath: m_text
+      value: Restart - R
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

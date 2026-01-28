@@ -3,6 +3,7 @@ using UnityEngine;
 
 using Scripts.NPC;
 using Assets.Systems.Damage;
+using Assets.Systems.GameState;
 namespace Scripts.Player
 {
     public class PlayerColliderAndTrigger : MonoBehaviour
@@ -31,7 +32,7 @@ namespace Scripts.Player
             }
             if (other.gameObject.CompareTag("Victory"))
             {
-                LevelManager.ManInstance.Victory();
+                GameStateSystem.Instance.TriggerVictory();
             }
         }
 
@@ -58,7 +59,7 @@ namespace Scripts.Player
             }
             if (other.gameObject.CompareTag("Victory"))
             {
-                LevelManager.ManInstance.Victory();
+                GameStateSystem.Instance.TriggerVictory();
             }
             
         }

@@ -11,10 +11,11 @@ namespace Assets.Systems.Damage
         [SerializeField] private int damagePerTick;
         [SerializeField] private float tickRate;
         [SerializeField] private float lingerDuration; // how long DOT continues after exit
-
+        
         public Element Element => element;
         public int DamagePerTick => damagePerTick;
         public float TickRate => tickRate;
+        public GameObject Owner => this.gameObject;
 
         private DamageSystem damageSystem;
 
@@ -36,7 +37,10 @@ namespace Assets.Systems.Damage
                 return;
             }
 
-            // Same-element immunity
+            // Commented this out because it is applying a rule, which it shouldn't know. 
+            // DOC doesn't need to know who can hurt who, it just needs to send info.
+            // ... I put it back in because the refactor for damage-rules would be getting ahead of myself
+            //// Same-element immunity
             if (target.Element == source.Element)
             {
                 return;
