@@ -18,7 +18,7 @@ public class LevelCanvas : MonoBehaviour
     public GameObject PauseScreen;
 
     private LevelManager pMan;
-    private GameState lastState;
+
     //Start is called before the first frame update
     void Start()
     {
@@ -29,16 +29,22 @@ public class LevelCanvas : MonoBehaviour
     // change the game over update to a listerner or event (check that it is actually better)
     void Update()
     {
-        GameState currentState = GameStateSystem.Instance.CurrentState;
-        if (currentState != lastState)
-        {
-            ChangePlayState(currentState);
-            lastState = currentState;
-        }
+        
+    }
+
+    private void OnEnable()
+    {
+        GameStateSystem.Instance.OnStateChanged += OnGameStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (GameStateSystem.Instance != null)
+            GameStateSystem.Instance.OnStateChanged -= OnGameStateChanged;
     }
 
     // Now we only call the screen setActives when state is changed
-    private void ChangePlayState(GameState newState)
+    private void OnGameStateChanged(GameState from, GameState newState)
     {
         switch (newState)
         {
