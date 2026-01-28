@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1888021200970485279}
   - component: {fileID: -629490241945460661}
   - component: {fileID: 4626065854874775726}
+  - component: {fileID: 8752863490628714482}
   m_Layer: 0
   m_Name: Healer
   m_TagString: NPC
@@ -155,8 +156,21 @@ MonoBehaviour:
   target: {fileID: 0}
   forceToTarget: 1
   health: 10
-  damage: -1
-  damagePerTick: -10
-  tickRate: 1
   thisEffect: {fileID: 0}
-  damageOverTime: {fileID: 0}
+  element: 2
+--- !u!114 &8752863490628714482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854097267668045109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
+  element: 2
+  damagePerTick: -1
+  tickRate: 1
+  lingerDuration: 0

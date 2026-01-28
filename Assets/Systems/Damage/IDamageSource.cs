@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Assets.Systems.Damage
+{
+    public interface IDamageSource
+    {
+        Element Element { get; }
+        int DamagePerTick { get; }
+        float TickRate { get; }
+    }
+}

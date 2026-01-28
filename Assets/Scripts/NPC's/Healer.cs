@@ -9,7 +9,7 @@ namespace Scripts.NPC
 
         protected override void Start()
         {
-            SetEffect(Effect.heal);
+            //this.Element = Assets.Systems.Damage.Element.Heal;
         }
 
     }

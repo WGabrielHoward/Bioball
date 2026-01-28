@@ -1,0 +1,64 @@
+﻿using Assets.Systems.Damage;
+using UnityEngine;
+
+namespace Assets.Systems.Damage
+{
+
+
+    public class DamageOnContact : MonoBehaviour , IDamageSource
+    {
+        [SerializeField] private Element element;
+        [SerializeField] private int damagePerTick;
+        [SerializeField] private float tickRate;
+        [SerializeField] private float lingerDuration; // how long DOT continues after exit
+
+        public Element Element => element;
+        public int DamagePerTick => damagePerTick;
+        public float TickRate => tickRate;
+
+        private DamageSystem damageSystem;
+
+        void Start()
+        {
+            damageSystem = FindAnyObjectByType<DamageSystem>();
+        }
+
+        void OnCollisionEnter(Collision other)
+        {
+            //if (other.gameObject.TryGetComponent<IDamageable>(out var target))
+            //{
+            //    Debug.Log("DamageOnContact triggered for: " + target);
+            //    damageSystem.ApplyDamageOverTime(target, damagePerTick, tickRate, lingerDuration);
+            //}
+
+            if (!other.gameObject.TryGetComponent<IDamageable>(out var target))
+            {
+                return;
+            }
+
+            if (!TryGetComponent<IDamageSource>(out var source))
+            {
+                return;
+            }
+
+            // Same-element immunity
+            if (target.Element == source.Element)
+            {
+                return;
+            }
+
+            damageSystem.ApplyDamageOverTime( target, source.DamagePerTick, source.TickRate, lingerDuration);
+        }
+
+        void OnCollisionExit(Collision other)
+        {
+            if (other.gameObject.TryGetComponent<IDamageable>(out var target))
+            {
+                damageSystem.StartLinger(target, lingerDuration);
+            }
+        }
+
+
+
+    }
+}

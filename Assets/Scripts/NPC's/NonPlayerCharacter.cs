@@ -1,28 +1,24 @@
 
 using UnityEngine;
+using Assets.Systems.Damage;
 
 namespace Scripts.NPC
 {
   
-    public class NonPlayerCharacter : MonoBehaviour
+    public class NonPlayerCharacter : MonoBehaviour, IDamageable
     {
         protected Rigidbody rbThis;
         [SerializeField] public GameObject target;
         [SerializeField] protected float forceToTarget = 1;
         [SerializeField] protected int health = 10;
-        [SerializeField] protected int damage = 0;
-        [SerializeField] protected int damagePerTick = 0;
-        [SerializeField] protected float tickRate = 1f;
         [SerializeField] protected EffectScript thisEffect;
-        [SerializeField] protected DamageOverTime damageOverTime;
+        [SerializeField] private Element element = Element.None;
+        public Element Element => element;
 
         void Awake()
         {
             rbThis = gameObject.GetComponent<Rigidbody>();
             thisEffect = gameObject.AddComponent<EffectScript>();
-            damageOverTime = gameObject.AddComponent<DamageOverTime>();
-            damageOverTime.SetDamagePerTick(damagePerTick);
-            damageOverTime.SetTickRate(tickRate);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -71,15 +67,7 @@ namespace Scripts.NPC
             thisEffect.SetEffect(newEffect);
         }
 
-        public virtual int GetDamage()
-        {
-            return damage;
-        }
-
-        public virtual DamageOverTime GetDamageOverTime()
-        {
-            return damageOverTime;
-        }
+       
 
         public void TakeDamage(int damage)
         {
@@ -88,6 +76,11 @@ namespace Scripts.NPC
             {
                 Death();
             }
+        }
+
+        public void ApplyDamage(int amount)
+        {
+            TakeDamage(amount);
         }
 
     }

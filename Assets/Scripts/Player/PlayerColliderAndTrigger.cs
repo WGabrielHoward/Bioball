@@ -2,7 +2,7 @@
 using UnityEngine;
 
 using Scripts.NPC;
-
+using Assets.Systems.Damage;
 namespace Scripts.Player
 {
     public class PlayerColliderAndTrigger : MonoBehaviour
@@ -27,59 +27,45 @@ namespace Scripts.Player
         }
 
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision other)
         {
-            if (collision.gameObject.CompareTag("NPC"))
+            if (other.gameObject.TryGetComponent<IDamageSource>(out var elementSource))
             {
-                playerEffects.EffectsSwitch(collision.gameObject, true);
-                collision.gameObject.GetComponent<DamageOverTime>().StartPlayerDamage(this.gameObject);
-            }
-            if (collision.gameObject.CompareTag("Victory"))
-            {
-                LevelManager.ManInstance.Victory();
-            }
-            if (collision.gameObject.CompareTag("Effect"))
-            {
-                playerEffects.EffectsSwitch(collision.gameObject, true);
-                collision.gameObject.GetComponent<DamageOverTime>().StartPlayerDamage(this.gameObject);
-            }
-        }
-
-        private void OnCollisionStay(Collision collision)
-        {
-            
-        }
-
-        private void OnCollisionExit(Collision collision)
-        {
-            if (collision.gameObject.CompareTag("NPC"))
-            {
-                playerEffects.EffectsSwitch(collision.gameObject, false);
-                collision.gameObject.GetComponent<DamageOverTime>().StopPlayerDamage();
-            }
-            if (collision.gameObject.CompareTag("Effect"))
-            {
-                playerEffects.EffectsSwitch(collision.gameObject, false);
-                collision.gameObject.GetComponent<DamageOverTime>().StopPlayerDamage();
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.CompareTag("NPC"))
-            {
-                playerEffects.EffectsSwitch(other.gameObject, true);
-                other.gameObject.GetComponent<DamageOverTime>().StartPlayerDamage(this.gameObject);
+                Effect effect = ElementRules.GetStatusForElement(elementSource.Element);
+                playerEffects.EffectsSwitch(effect, true);
             }
             if (other.gameObject.CompareTag("Victory"))
             {
                 LevelManager.ManInstance.Victory();
             }
-            if (other.gameObject.CompareTag("Effect"))
+        }
+
+        private void OnCollisionStay(Collision other)
+        {
+            
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            if (other.gameObject.TryGetComponent<IDamageSource>(out var elementSource))
             {
-                playerEffects.EffectsSwitch(other.gameObject, true);
-                other.gameObject.GetComponent<DamageOverTime>().StartPlayerDamage(this.gameObject);
+                Effect effect = ElementRules.GetStatusForElement(elementSource.Element);
+                playerEffects.EffectsSwitch(effect, false);
             }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent<IDamageSource>(out var elementSource))
+            {
+                Effect effect = ElementRules.GetStatusForElement(elementSource.Element);
+                playerEffects.EffectsSwitch(effect, true);
+            }
+            if (other.gameObject.CompareTag("Victory"))
+            {
+                LevelManager.ManInstance.Victory();
+            }
+            
         }
 
         private void OnTriggerStay(Collider other)
@@ -90,15 +76,10 @@ namespace Scripts.Player
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.CompareTag("NPC"))
+            if (other.gameObject.TryGetComponent<IDamageSource>(out var elementSource))
             {
-                playerEffects.EffectsSwitch(other.gameObject, false);
-                other.gameObject.GetComponent<DamageOverTime>().StopPlayerDamage();
-            }
-            if (other.gameObject.CompareTag("Effect"))
-            {
-                playerEffects.EffectsSwitch(other.gameObject, false);
-                other.gameObject.GetComponent<DamageOverTime>().StopPlayerDamage();
+                Effect effect = ElementRules.GetStatusForElement(elementSource.Element);
+                playerEffects.EffectsSwitch(effect, false);
             }
         }
 

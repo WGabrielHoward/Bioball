@@ -4,14 +4,13 @@ using UnityEngine;
 
 public enum Effect
 {
-    unnassigned,
-    none,
-    damage,
-    burn,
-    freeze,
-    poison,
-    heal
-    
+    None,
+    Damage,
+    Burn,
+    Freeze,
+    Poison,
+    Heal
+
 }
 
 public class EffectScript : MonoBehaviour
@@ -20,10 +19,6 @@ public class EffectScript : MonoBehaviour
 
     void Start()
     {
-        if (thisEffect==Effect.unnassigned)
-        {
-            thisEffect = Effect.none;
-        }
     }
 
     public virtual Effect GetEffect()
