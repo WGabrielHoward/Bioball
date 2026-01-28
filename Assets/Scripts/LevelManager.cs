@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     private int m_Points;
-    private GameState lastState;
+    //private GameState lastState;
 
     public static PersistentData pData;
     public static LevelManager ManInstance;
@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
 
         ManInstance = this;
         pData = PersistentData.Instance;
-        lastState = GameState.Undefined;
+        //lastState = GameState.Undefined;
 }
 
     // Start is called before the first frame update
@@ -47,18 +47,30 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        var current = GameStateSystem.Instance.CurrentState;
+        //var current = GameStateSystem.Instance.CurrentState;
 
-        if (current != lastState)
-        {
-            OnGameStateChanged(lastState, current);
-            lastState = current;
-        }
-        HandleStateInput(current);
+        //if (current != lastState)
+        //{
+        //    OnGameStateChanged(lastState, current);
+        //    lastState = current;
+        //}
+        HandleStateInput(GameStateSystem.Instance.CurrentState);
 
     }
 
-    public void Play()
+    private void OnEnable()
+    {
+        GameStateSystem.Instance.OnStateChanged += OnGameStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (GameStateSystem.Instance != null)
+            GameStateSystem.Instance.OnStateChanged -= OnGameStateChanged;
+    }
+
+
+    public void TriggerPlay()
     {
         GameStateSystem.Instance.TriggerPlay();
     }
@@ -168,6 +180,7 @@ public class LevelManager : MonoBehaviour
                 break;
         }
     }
+  
 
     void HandleStateInput(GameState state)
     {

@@ -20,9 +20,11 @@ namespace Assets.Systems.GameState
     {
         public static GameStateSystem Instance { get; private set; }
 
-        public GameState CurrentState { get; private set; }
+        public GameState CurrentState { get; private set; } = GameState.Undefined;
 
-        void Awake()
+        public event System.Action<GameState, GameState> OnStateChanged;
+
+        private void Awake()
         {
             if (Instance != null)
             {
@@ -32,38 +34,51 @@ namespace Assets.Systems.GameState
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            CurrentState = GameState.Playing;
         }
 
-        public void TriggerVictory()
+        private void SetState(GameState newState)
         {
-            if (CurrentState != GameState.Playing) return;
+            if(!TransitionLegal(CurrentState, newState))
+            {
+                return;
+            }
 
-            CurrentState = GameState.Victory;
-            UnityEngine.Debug.Log("Victory!");
+            var previous = CurrentState;
+            CurrentState = newState;
+
+            OnStateChanged?.Invoke(previous, newState);
         }
 
-        public void TriggerDefeat()
+        public void TriggerPlay() => SetState(GameState.Playing);
+        public void TriggerPause() => SetState(GameState.Pause);
+        public void TriggerDefeat() => SetState(GameState.Defeat);
+        public void TriggerVictory() => SetState(GameState.Victory);
+
+
+        private bool TransitionLegal(GameState from, GameState to)
         {
-            if (CurrentState != GameState.Playing) return;
+            // No repeating
+            if (to == from)
+            {
+                return false;
+            }
 
-            CurrentState = GameState.Defeat;
-            UnityEngine.Debug.Log("Defeat!");
+            // Playing can always be entered
+            if (to == GameState.Playing)
+            {
+                return true;
+            }
+
+            // Only allow these transitions FROM Playing
+            if (from == GameState.Playing)
+            {
+                return (to == GameState.Pause || to == GameState.Victory || to == GameState.Defeat);
+            }
+
+            return false;
         }
 
-        public void TriggerPause()
-        {
-            if (CurrentState != GameState.Playing) return;
-
-            CurrentState = GameState.Pause;
-            UnityEngine.Debug.Log("Paused");
-        }
-
-        public void TriggerPlay()
-        {
-            CurrentState = GameState.Playing;
-            UnityEngine.Debug.Log("Playing");
-        }
     }
-
 }
+
+

@@ -14,6 +14,7 @@ namespace Scripts.Player
         [Header("Player View")]
         private GameObject focalPoint;
         private PlayerScriptManager playSMan;
+        
 
         private void Awake()
         {
@@ -33,7 +34,7 @@ namespace Scripts.Player
         // Update is called once per frame
         void FixedUpdate()
         {
-
+            
             verticalInput = Input.GetAxis("Vertical");
             rbPlayer.AddForce(focalPoint.transform.forward * verticalInput * forwardSpeed);
 
