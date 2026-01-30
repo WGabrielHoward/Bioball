@@ -1,5 +1,5 @@
 
-using Assets.Systems.GameState;
+using Scripts.Systems;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,13 +47,6 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        //var current = GameStateSystem.Instance.CurrentState;
-
-        //if (current != lastState)
-        //{
-        //    OnGameStateChanged(lastState, current);
-        //    lastState = current;
-        //}
         HandleStateInput(GameStateSystem.Instance.CurrentState);
 
     }

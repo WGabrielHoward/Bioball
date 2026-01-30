@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Systems.Damage
+namespace Scripts.Interface
 {
+
     public interface IDamageSource
     {
         Element Element { get; }

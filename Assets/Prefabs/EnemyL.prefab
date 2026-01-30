@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5257056113352207598}
   - component: {fileID: 1888021200970485279}
   - component: {fileID: 7044599390107545259}
-  - component: {fileID: 7968825229868341830}
+  - component: {fileID: 8334806769448256379}
   m_Layer: 0
   m_Name: EnemyL
   m_TagString: NPC
@@ -135,7 +135,7 @@ MonoBehaviour:
   forceToTarget: 1
   health: 10
   element: 3
---- !u!114 &7968825229868341830
+--- !u!114 &8334806769448256379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 854097267668045109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 3

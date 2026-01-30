@@ -1,9 +1,10 @@
 
 using UnityEngine;
 
-
 namespace Scripts.NPC
 {
+
+
     public class Healer : NonPlayerCharacter
     {
 

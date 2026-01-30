@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Assets.Systems.Damage;
+using Scripts.Interface;
 
     public static class ElementRules
     {

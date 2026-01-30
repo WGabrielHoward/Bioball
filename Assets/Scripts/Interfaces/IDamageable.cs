@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Systems.Damage
+namespace Scripts.Interface
 {
 
     public interface IDamageable
@@ -31,4 +31,5 @@ namespace Assets.Systems.Damage
         Time
 
     }
+
 }

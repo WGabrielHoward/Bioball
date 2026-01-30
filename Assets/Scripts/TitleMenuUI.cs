@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[DefaultExecutionOrder(1000)]
 public class TitleMenuUI : MonoBehaviour
 {
 

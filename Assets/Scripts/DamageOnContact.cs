@@ -1,11 +1,9 @@
-﻿using Assets.Systems.Damage;
+﻿using Scripts.Systems;
 using UnityEngine;
 
-namespace Assets.Systems.Damage
-{
+using Scripts.Interface;
 
-
-    public class DamageOnContact : MonoBehaviour , IDamageSource
+public class DamageOnContact : MonoBehaviour , IDamageSource
     {
         [SerializeField] private Element element;
         [SerializeField] private int damagePerTick;
@@ -90,4 +88,4 @@ namespace Assets.Systems.Damage
 
 
     }
-}
+

@@ -1,10 +1,12 @@
 
 using UnityEngine;
-using Assets.Systems.Damage;
+using Scripts.Systems;
+using Scripts.Interface;
 
 namespace Scripts.NPC
 {
-  
+
+
     public class NonPlayerCharacter : MonoBehaviour, IDamageable
     {
         protected Rigidbody rbThis;
@@ -22,7 +24,7 @@ namespace Scripts.NPC
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected virtual void Start()
         {
-            
+
         }
 
         // Update is called once per frame
@@ -55,7 +57,7 @@ namespace Scripts.NPC
         {
             Destroy(gameObject);
         }
-               
+
 
         public void TakeDamage(int damage)
         {

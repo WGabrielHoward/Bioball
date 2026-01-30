@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Systems.Damage
+using Scripts.Interface;
+
+namespace Scripts.Systems
 {
     public class DamageSystem : MonoBehaviour
     {

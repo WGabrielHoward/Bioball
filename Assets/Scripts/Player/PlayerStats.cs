@@ -2,9 +2,9 @@ using System.Collections;
 using UnityEngine;
 
 using Scripts.NPC;
-using Assets.Systems.Damage;
+using Scripts.Systems;
 using Unity.Properties;
-using Assets.Systems.GameState;
+using Scripts.Interface;
 
 namespace Scripts.Player
 {

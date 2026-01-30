@@ -1101,7 +1101,7 @@ GameObject:
   - component: {fileID: 228679756}
   - component: {fileID: 228679755}
   - component: {fileID: 228679754}
-  - component: {fileID: 228679759}
+  - component: {fileID: 228679757}
   m_Layer: 0
   m_Name: GameObject (54)
   m_TagString: Effect
@@ -1201,7 +1201,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228679752}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &228679759
+--- !u!114 &228679757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1210,13 +1210,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 228679752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 3
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &229115613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,7 +2484,7 @@ GameObject:
   - component: {fileID: 445227106}
   - component: {fileID: 445227105}
   - component: {fileID: 445227104}
-  - component: {fileID: 445227108}
+  - component: {fileID: 445227107}
   m_Layer: 0
   m_Name: GameObject (57)
   m_TagString: Effect
@@ -2584,7 +2584,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445227102}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &445227108
+--- !u!114 &445227107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2593,13 +2593,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 445227102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 4
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &451745900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3781,7 +3781,7 @@ GameObject:
   - component: {fileID: 788922157}
   - component: {fileID: 788922156}
   - component: {fileID: 788922155}
-  - component: {fileID: 788922160}
+  - component: {fileID: 788922158}
   m_Layer: 0
   m_Name: GameObject (65)
   m_TagString: Effect
@@ -3881,7 +3881,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788922153}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &788922160
+--- !u!114 &788922158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3890,13 +3890,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 788922153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 5
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &790315462
 GameObject:
   m_ObjectHideFlags: 0
@@ -4797,7 +4797,7 @@ GameObject:
   - component: {fileID: 1010375405}
   - component: {fileID: 1010375404}
   - component: {fileID: 1010375403}
-  - component: {fileID: 1010375407}
+  - component: {fileID: 1010375406}
   m_Layer: 0
   m_Name: GameObject (58)
   m_TagString: Effect
@@ -4897,7 +4897,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010375401}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1010375407
+--- !u!114 &1010375406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4906,13 +4906,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1010375401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 4
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &1070915691
 GameObject:
   m_ObjectHideFlags: 0
@@ -4925,7 +4925,7 @@ GameObject:
   - component: {fileID: 1070915695}
   - component: {fileID: 1070915694}
   - component: {fileID: 1070915693}
-  - component: {fileID: 1070915698}
+  - component: {fileID: 1070915696}
   m_Layer: 0
   m_Name: GameObject (63)
   m_TagString: Effect
@@ -5025,7 +5025,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070915691}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1070915698
+--- !u!114 &1070915696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5034,13 +5034,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1070915691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 5
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &1076491855
 GameObject:
   m_ObjectHideFlags: 0
@@ -5456,7 +5456,7 @@ GameObject:
   - component: {fileID: 1253009588}
   - component: {fileID: 1253009587}
   - component: {fileID: 1253009586}
-  - component: {fileID: 1253009591}
+  - component: {fileID: 1253009589}
   m_Layer: 0
   m_Name: GameObject (64)
   m_TagString: Effect
@@ -5556,7 +5556,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253009584}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1253009591
+--- !u!114 &1253009589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5565,13 +5565,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1253009584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 5
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &1259586471
 GameObject:
   m_ObjectHideFlags: 0
@@ -5734,7 +5734,7 @@ GameObject:
   - component: {fileID: 1359934239}
   - component: {fileID: 1359934238}
   - component: {fileID: 1359934237}
-  - component: {fileID: 1359934241}
+  - component: {fileID: 1359934240}
   m_Layer: 0
   m_Name: GameObject (61)
   m_TagString: Effect
@@ -5834,7 +5834,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359934235}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1359934241
+--- !u!114 &1359934240
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5843,13 +5843,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1359934235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 4
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &1366467243
 GameObject:
   m_ObjectHideFlags: 0
@@ -5862,7 +5862,7 @@ GameObject:
   - component: {fileID: 1366467247}
   - component: {fileID: 1366467246}
   - component: {fileID: 1366467245}
-  - component: {fileID: 1366467250}
+  - component: {fileID: 1366467248}
   m_Layer: 0
   m_Name: GameObject (62)
   m_TagString: Effect
@@ -5962,7 +5962,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366467243}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1366467250
+--- !u!114 &1366467248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5971,13 +5971,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1366467243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 5
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &1368201262
 GameObject:
   m_ObjectHideFlags: 0
@@ -6736,7 +6736,7 @@ GameObject:
   - component: {fileID: 1430832778}
   - component: {fileID: 1430832777}
   - component: {fileID: 1430832776}
-  - component: {fileID: 1430832781}
+  - component: {fileID: 1430832779}
   m_Layer: 0
   m_Name: GameObject (56)
   m_TagString: Effect
@@ -6836,7 +6836,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430832774}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1430832781
+--- !u!114 &1430832779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6845,13 +6845,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1430832774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 3
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &1446867027
 GameObject:
   m_ObjectHideFlags: 0
@@ -7228,7 +7228,7 @@ GameObject:
   - component: {fileID: 1518189302}
   - component: {fileID: 1518189301}
   - component: {fileID: 1518189300}
-  - component: {fileID: 1518189305}
+  - component: {fileID: 1518189303}
   m_Layer: 0
   m_Name: GameObject (20)
   m_TagString: Effect
@@ -7328,7 +7328,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518189298}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1518189305
+--- !u!114 &1518189303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7337,13 +7337,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1518189298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 3
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &1523446598
 GameObject:
   m_ObjectHideFlags: 0
@@ -7667,7 +7667,7 @@ GameObject:
   - component: {fileID: 1616247654}
   - component: {fileID: 1616247653}
   - component: {fileID: 1616247652}
-  - component: {fileID: 1616247656}
+  - component: {fileID: 1616247655}
   m_Layer: 0
   m_Name: GameObject (60)
   m_TagString: Effect
@@ -7767,7 +7767,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616247650}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1616247656
+--- !u!114 &1616247655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7776,13 +7776,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1616247650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 4
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1001 &1616893859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9476,7 +9476,7 @@ GameObject:
   - component: {fileID: 2015004863}
   - component: {fileID: 2015004862}
   - component: {fileID: 2015004861}
-  - component: {fileID: 2015004865}
+  - component: {fileID: 2015004864}
   m_Layer: 0
   m_Name: GameObject (59)
   m_TagString: Effect
@@ -9576,7 +9576,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015004859}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2015004865
+--- !u!114 &2015004864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9585,13 +9585,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2015004859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 4
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &2042348484
 GameObject:
   m_ObjectHideFlags: 0
@@ -9604,7 +9604,7 @@ GameObject:
   - component: {fileID: 2042348488}
   - component: {fileID: 2042348487}
   - component: {fileID: 2042348486}
-  - component: {fileID: 2042348491}
+  - component: {fileID: 2042348489}
   m_Layer: 0
   m_Name: GameObject (55)
   m_TagString: Effect
@@ -9704,7 +9704,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042348484}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2042348491
+--- !u!114 &2042348489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9713,13 +9713,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2042348484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f2a65794f6ae447b82566f36c47ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 12845b3222d54d34ea5f0ab6864dd958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnContact
   element: 3
   damagePerTick: 1
   tickRate: 1
-  lingerDuration: 5
+  lingerDuration: 3
 --- !u!1 &2046386866
 GameObject:
   m_ObjectHideFlags: 0

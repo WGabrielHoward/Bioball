@@ -1,7 +1,7 @@
 
 using System.Net.NetworkInformation;
 using UnityEngine;
-using Assets.Systems.GameState;
+using Scripts.Systems;
 
 //[DefaultExecutionOrder(500)]
 public class LevelCanvas : MonoBehaviour

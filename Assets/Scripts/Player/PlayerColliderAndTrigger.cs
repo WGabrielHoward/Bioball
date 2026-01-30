@@ -2,8 +2,9 @@
 using UnityEngine;
 
 using Scripts.NPC;
-using Assets.Systems.Damage;
-using Assets.Systems.GameState;
+using Scripts.Systems;
+using Scripts.Interface;
+
 namespace Scripts.Player
 {
     public class PlayerColliderAndTrigger : MonoBehaviour

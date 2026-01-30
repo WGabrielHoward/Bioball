@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Systems.GameState
+namespace Scripts.Systems
 {
     public enum GameState
     {
