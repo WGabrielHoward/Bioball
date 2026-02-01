@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 744392609835904184}
   - component: {fileID: 5257056113352207598}
   - component: {fileID: 1888021200970485279}
-  - component: {fileID: 6540693655035904045}
   - component: {fileID: 5265258286466277867}
   - component: {fileID: 43402855099361352}
+  - component: {fileID: 6608316698392187887}
   m_Layer: 0
   m_Name: EnemyPoison
   m_TagString: NPC
@@ -120,22 +120,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6540693655035904045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854097267668045109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c357d6677cea0c43b84957d6a5f210c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Scripts.NPC.Enemy
-  target: {fileID: 0}
-  forceToTarget: 1
-  health: 10
-  element: 5
 --- !u!135 &5265258286466277867
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -173,3 +157,21 @@ MonoBehaviour:
   damagePerTick: 1
   tickRate: 1
   lingerDuration: 0
+--- !u!114 &6608316698392187887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854097267668045109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fe61dec88502544bbc9547c0d5aa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scripts.NPC.NonPlayerCharacter
+  forceToTarget: 1
+  health: 10
+  aggroRange: 50
+  npcType: 0
+  element: 5
+  target: {fileID: 0}

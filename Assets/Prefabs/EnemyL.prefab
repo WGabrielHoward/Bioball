@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 744392609835904184}
   - component: {fileID: 5257056113352207598}
   - component: {fileID: 1888021200970485279}
-  - component: {fileID: 7044599390107545259}
   - component: {fileID: 8334806769448256379}
+  - component: {fileID: 5420944454982896678}
   m_Layer: 0
   m_Name: EnemyL
   m_TagString: NPC
@@ -119,22 +119,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7044599390107545259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854097267668045109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c357d6677cea0c43b84957d6a5f210c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Scripts.NPC.Enemy
-  target: {fileID: 0}
-  forceToTarget: 1
-  health: 10
-  element: 3
 --- !u!114 &8334806769448256379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +135,21 @@ MonoBehaviour:
   damagePerTick: 1
   tickRate: 1
   lingerDuration: 0
+--- !u!114 &5420944454982896678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854097267668045109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fe61dec88502544bbc9547c0d5aa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scripts.NPC.NonPlayerCharacter
+  forceToTarget: 1
+  health: 10
+  aggroRange: 50
+  npcType: 0
+  element: 3
+  target: {fileID: 0}
