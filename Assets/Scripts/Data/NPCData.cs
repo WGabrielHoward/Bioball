@@ -14,7 +14,7 @@ namespace Assets.Scripts.Data
         public float AggroRange;
         public Vector3 Position;
         public Vector3 DesiredDirection;
-        public GameObject Target;
+        public Vector3 TargetPosition;
     }
 
     public enum NPCIntent

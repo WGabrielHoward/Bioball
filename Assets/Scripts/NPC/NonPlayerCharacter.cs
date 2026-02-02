@@ -52,6 +52,7 @@ namespace Scripts.NPC
         void FixedUpdate()
         {
             npcData.Position = this.transform.position;
+            npcData.TargetPosition = target.transform.position;
             if (npcData.Intent != NPCIntent.Idle)
             {
                 ApplyMovement();
@@ -72,7 +73,7 @@ namespace Scripts.NPC
             }
             //else npcData.Target = newTarget.transform.position;
             else target = newTarget;
-            npcData.Target = target;
+            npcData.TargetPosition = target.transform.position;
 
         }
 

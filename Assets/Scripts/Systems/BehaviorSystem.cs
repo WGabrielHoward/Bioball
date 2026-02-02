@@ -15,7 +15,8 @@ namespace Assets.Scripts.Systems
         public static BehaviorSystem Instance { get; private set; }
 
         private readonly List<NPCData> npcs = new();
-        //private GameObject player;
+        [SerializeField] private float behaviorTickRate = 0.2f; // 5 Hz
+        private float behaviorTimer;
 
         //public BehaviorSystem(List<NPCData> npcs)
         //{
@@ -50,15 +51,27 @@ namespace Assets.Scripts.Systems
 
         void Update()
         {
+            behaviorTimer -= Time.deltaTime;
+            if (behaviorTimer > 0f)
+                return;
+
+            behaviorTimer = behaviorTickRate;
+            RunBehavior();
+
+            
+        }
+
+        private void RunBehavior()
+        {
             Vector3 goalVec;
             foreach (var npc in npcs)
             {
-                if (npc.Target == null) continue;
+                if (npc.TargetPosition == null) continue;
 
-                goalVec = npc.Target.transform.position - npc.Position;
+                goalVec = npc.TargetPosition - npc.Position;
 
                 // Decide intent
-                if (goalVec.magnitude < npc.AggroRange)
+                if (goalVec.sqrMagnitude < npc.AggroRange*npc.AggroRange)
                 {
                     if (npc.NPCType == NPCType.Enemy)
                     {
