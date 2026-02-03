@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
     guid: 154f9f60f59adcc478f36744cead93d4
+  - enabled: 0
+    path: Assets/Scenes/LevelSwarmTest.unity
+    guid: 3432a3254a1aed741a5fdce11d6b97e7
   - enabled: 1
     path: Assets/Scenes/Level_0.unity
     guid: b4e034438a0358b4da801d0a5d33046f
