@@ -1,10 +1,9 @@
 
 using UnityEngine;
-using Scripts.Systems;
 using Scripts.Interface;
 using Assets.Scripts.Data;
 using Assets.Scripts.Systems;
-using NUnit.Framework;
+using Assets.Scripts;
 
 namespace Scripts.NPC
 {
@@ -31,6 +30,7 @@ namespace Scripts.NPC
 
             npcData = new NPCData
             {
+                EntityId = EntityIdGenerator.Next(),
                 Health = health,
                 MoveForce = forceToTarget,
                 Position = transform.position,
@@ -53,11 +53,7 @@ namespace Scripts.NPC
         {
             npcData.Position = this.transform.position;
             npcData.TargetPosition = target.transform.position;
-            if (npcData.Intent != NPCIntent.Idle)
-            {
-                ApplyMovement();
-            }
-
+            
             if (transform.position.y < -10)
             {
                 Death();
@@ -68,19 +64,11 @@ namespace Scripts.NPC
         {
             if (newTarget == null)
             {
-                target = GameObject.Find("Player");
-                //npcData.Target = GameObject.Find("Player").transform.position;
+                target = GameObject.Find("Player");                
             }
-            //else npcData.Target = newTarget.transform.position;
+            
             else target = newTarget;
             npcData.TargetPosition = target.transform.position;
-
-        }
-
-        private void SetByType()
-        {
-            // set info by type
-
 
         }
 
@@ -90,6 +78,10 @@ namespace Scripts.NPC
             Destroy(gameObject);
         }
 
+        private void OnDestroy()
+        {
+            SelfUnRegister();
+        }
 
         public void TakeDamage(int damage)
         {
@@ -105,20 +97,29 @@ namespace Scripts.NPC
             TakeDamage(amount);
         }
 
-
-        private void ApplyMovement()
-        {
-            rbThis.AddForce(npcData.DesiredDirection * npcData.MoveForce);
-        }
-
         public void SelfRegister()
         {
-            BehaviorSystem.Instance.RegisterNPC(this.npcData);
+            if (BehaviorSystem.Instance != null)
+            {
+                BehaviorSystem.Instance.Register(this.npcData.EntityId, npcData);
+            }
+            if (MovementSystem.Instance != null)
+            {
+                MovementSystem.Instance.Register(this.npcData.EntityId, npcData, this.rbThis);
+            }
+
         }
 
         public void SelfUnRegister()
         {
-            BehaviorSystem.Instance.UnregisterNPC(this.npcData);
+            if (BehaviorSystem.Instance != null)
+            {
+                BehaviorSystem.Instance.Unregister(this.npcData.EntityId);
+            }
+            if (MovementSystem.Instance != null)
+            {
+                MovementSystem.Instance.Unregister(this.npcData.EntityId);
+            }
         }
     }
 

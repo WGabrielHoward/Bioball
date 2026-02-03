@@ -1,27 +1,27 @@
 ﻿using Assets.Scripts.Data;
-using Scripts.NPC;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Systems
 {
+
     public class BehaviorSystem : MonoBehaviour
     {
         public static BehaviorSystem Instance { get; private set; }
 
-        private readonly List<NPCData> npcs = new();
+        private class BehaviorEntry
+        {
+            public int EntityId;
+            public NPCData Data;
+        }
+
+        private readonly List<BehaviorEntry> entries = new();
+        private readonly Dictionary<int, int> indexByEntity = new();
+
+
         [SerializeField] private float behaviorTickRate = 0.2f; // 5 Hz
         private float behaviorTimer;
 
-        //public BehaviorSystem(List<NPCData> npcs)
-        //{
-        //    this.npcs = npcs;
-        //}
         private void Awake()
         {
             if (Instance != null)
@@ -35,19 +35,33 @@ namespace Assets.Scripts.Systems
 
         }
 
-        public void RegisterNPC(NPCData npcData)
+        public void Register(int entityId, NPCData data)
         {
-            //UnityEngine.Debug.Log("npc registered");
-            if (!npcs.Contains(npcData))
-                npcs.Add(npcData);
-        }
-       
+            if (indexByEntity.ContainsKey(entityId))
+                return;
 
-        public void UnregisterNPC(NPCData npcData)
-        {
-            //UnityEngine.Debug.Log("npc Unregistered");
-            npcs.Remove(npcData);
+            indexByEntity[entityId] = entries.Count;
+            entries.Add(new BehaviorEntry
+            {
+                EntityId = entityId,
+                Data = data
+            });
         }
+
+
+        public void Unregister(int entityId)
+        {
+            if (!indexByEntity.TryGetValue(entityId, out int index))
+                return;
+
+            int last = entries.Count - 1;
+            entries[index] = entries[last];
+            indexByEntity[entries[index].EntityId] = index;
+
+            entries.RemoveAt(last);
+            indexByEntity.Remove(entityId);
+        }
+        
 
         void Update()
         {
@@ -63,48 +77,44 @@ namespace Assets.Scripts.Systems
 
         private void RunBehavior()
         {
-            Vector3 goalVec;
-            foreach (var npc in npcs)
+            for (int i = 0; i < entries.Count; i++)
             {
-                if (npc.TargetPosition == null) continue;
+                ref NPCData npc = ref entries[i].Data;
 
-                goalVec = npc.TargetPosition - npc.Position;
-
+                Vector3 toTarget = npc.TargetPosition - npc.Position;
+                                
                 // Decide intent
-                if (goalVec.sqrMagnitude < npc.AggroRange*npc.AggroRange)
+                if (toTarget.sqrMagnitude < npc.AggroRange * npc.AggroRange)
                 {
-                    if (npc.NPCType == NPCType.Enemy)
+                    npc.Intent = NPCIntent.Flee;
+                    if (npc.NPCType == NPCType.Enemy && npc.Health > 2)
                     {
                         npc.Intent = NPCIntent.Chase;
                     }
-                    else if (npc.NPCType == NPCType.Healer || npc.NPCType == NPCType.Prey)
-                    {
-                        npc.Intent = NPCIntent.Flee;
-                    }
+                     
                 }
-
-                // Low health override
-                if (npc.Health < 2)
+                else
                 {
-                    npc.Intent = NPCIntent.Flee;
+                    npc.Intent = NPCIntent.Idle;
                 }
 
-                // Determine movement direction
+
+                // Compute desired direction
                 if (npc.Intent == NPCIntent.Flee)
                 {
-                    npc.DesiredDirection = (-goalVec).normalized;
+                    npc.DesiredDirection = -toTarget.normalized;
                 }
                 else if (npc.Intent == NPCIntent.Chase)
                 {
-                    npc.DesiredDirection = (goalVec).normalized;
+                    npc.DesiredDirection = toTarget.normalized;
                 }
                 else
                 {
                     npc.DesiredDirection = Vector3.zero;
                 }
-
             }
         }
+
     }
 
 }
