@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 using Scripts.Interface;
+using UnityEngine;
 
-    public class ActiveDamageEffect
-    {
-        public IDamageable target;
-        public int damagePerTick;
-        public float tickRate;
-        public float timeUntilNextTick;
+public class ActiveDamageEffect
+{
+    //Temporarily adding back in
+    public IDamageable Target;
+    public GameObject TargetObject;
 
-        public bool isColliding = true;        // true while target is still in contact
-        public float lingerTimeRemaining;       // counts down after exit
-    }
+    public int EntityId;               // HealthSystem identifier
+    public Element TargetElement;      // For immunity / rules
 
+    public int DamagePerTick;          // Amount per tick or total for instant
+    public float TickRate;             // 0 for instant damage
+    public float TimeUntilNextTick;
+
+    public bool IsColliding = true;    // true while target is still in contact
+    public float LingerTimeRemaining;  // counts down after exit
+
+    // Convenience property
+    public bool IsInstant => TickRate <= 0f;
+}

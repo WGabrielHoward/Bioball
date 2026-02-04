@@ -18,6 +18,7 @@ namespace Scripts.NPC
         [SerializeField] private NPCType npcType;
         [SerializeField] private Element element = Element.None;
         public Element Element => element;
+        public int EntityId => npcData.EntityId;
 
         [SerializeField] private GameObject target;
 
@@ -74,7 +75,6 @@ namespace Scripts.NPC
 
         protected virtual void Death()
         {
-            SelfUnRegister();
             Destroy(gameObject);
         }
 
@@ -107,6 +107,10 @@ namespace Scripts.NPC
             {
                 MovementSystem.Instance.Register(this.npcData.EntityId, npcData, this.rbThis);
             }
+            if (HealthSystem.Instance != null)
+            {
+                HealthSystem.Instance.Register(npcData.EntityId, npcData);
+            }
 
         }
 
@@ -120,6 +124,11 @@ namespace Scripts.NPC
             {
                 MovementSystem.Instance.Unregister(this.npcData.EntityId);
             }
+            if (HealthSystem.Instance != null)
+            {
+                HealthSystem.Instance.Unregister(this.npcData.EntityId);
+            }
+
         }
     }
 

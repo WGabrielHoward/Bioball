@@ -9,8 +9,9 @@ namespace Scripts.Interface
 
     public interface IDamageable
     {
-        void ApplyDamage(int amount);
+        int EntityId { get; }
         Element Element { get; }
+        void ApplyDamage(int amount);
 
     }
 

@@ -1,10 +1,9 @@
-using System.Collections;
+
 using UnityEngine;
 
-using Scripts.NPC;
 using Scripts.Systems;
-using Unity.Properties;
 using Scripts.Interface;
+using Assets.Scripts;
 
 namespace Scripts.Player
 {
@@ -14,6 +13,7 @@ namespace Scripts.Player
         private PlayerController playerController;
         protected Element element;
         public Element Element => element;
+        public int EntityId { get; private set; }
 
         [Header("Player Stats")]
         private float forwardSpeed;
@@ -24,7 +24,9 @@ namespace Scripts.Player
         private void Awake()
         {
             playSMan = gameObject.GetComponent<PlayerScriptManager>();
-            
+
+            EntityId = EntityIdGenerator.Next();
+
         }
         private void Start()
         {
@@ -32,6 +34,7 @@ namespace Scripts.Player
             playerController = playSMan.GetPlayerController();
             PullForwardSpeed();
             PullHealth();
+
         }
 
         public float GetForwardSpeed()

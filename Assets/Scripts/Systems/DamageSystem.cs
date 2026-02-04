@@ -2,6 +2,9 @@
 using UnityEngine;
 
 using Scripts.Interface;
+using Assets.Scripts.Systems;
+
+using Assets.Scripts.Data;
 
 namespace Scripts.Systems
 {
@@ -9,7 +12,7 @@ namespace Scripts.Systems
     {
         private readonly List<ActiveDamageEffect> activeEffects = new();
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             float dt = Time.deltaTime;
 
@@ -17,28 +20,36 @@ namespace Scripts.Systems
             {
                 var effect = activeEffects[i];
 
-                // safe null check for destroyed NPCs/players
-                if (effect.target is UnityEngine.Object unityTarget && unityTarget == null)
+                // Make sure target is alive/real
+                if (effect.TargetObject == null)
                 {
                     activeEffects.RemoveAt(i);
                     continue;
                 }
 
-
-                // Tick logic
-                effect.timeUntilNextTick -= dt;
-                if (effect.timeUntilNextTick <= 0f)
+                // Apply damage
+                if (effect.IsInstant)
                 {
-                    effect.target.ApplyDamage(effect.damagePerTick);
-                    effect.timeUntilNextTick = effect.tickRate;
-                    Debug.Log($"Applying {effect.damagePerTick} to {effect.target}");
+                    // Instant damage applies once immediately
+                    HealthSystem.Instance.ApplyDamage(effect.EntityId, effect.DamagePerTick);
+                    activeEffects.RemoveAt(i);
+                    continue;
                 }
 
-                // Linger / expiration logic
-                if (!effect.isColliding)
+                // Tickable DOT
+                effect.TimeUntilNextTick -= dt;
+                if (effect.TimeUntilNextTick <= 0f)
                 {
-                    effect.lingerTimeRemaining -= dt;
-                    if (effect.lingerTimeRemaining <= 0f)
+                    //HealthSystem.Instance.ApplyDamage(effect.EntityId, effect.DamagePerTick);
+                    effect.Target.ApplyDamage(effect.DamagePerTick);
+                    effect.TimeUntilNextTick = effect.TickRate;
+                }
+
+                // Linger / expiration
+                if (!effect.IsColliding)
+                {
+                    effect.LingerTimeRemaining -= dt;
+                    if (effect.LingerTimeRemaining <= 0f)
                     {
                         activeEffects.RemoveAt(i);
                         continue;
@@ -47,54 +58,49 @@ namespace Scripts.Systems
             }
         }
 
-        public void ApplyDamageOverTime(IDamageable target, int damagePerTick, float tickRate, float lingerDuration)
+        // Unified method: DOT or instant
+        public void ApplyDamage(
+            IDamageable target,
+            GameObject targetObject,
+            int entityId,
+            Element targetElement,
+            int damageAmount,
+            float tickRate = 0f,
+            float lingerDuration = 0f
+        )
         {
-
             activeEffects.Add(new ActiveDamageEffect
             {
-                target = target,
-                damagePerTick = damagePerTick,
-                tickRate = tickRate,
-                timeUntilNextTick = tickRate,
-                isColliding = true,           // active while player is in contact
-                lingerTimeRemaining = 0f       // will be set on exit
+                Target = target,
+                TargetObject = targetObject,
+                EntityId = entityId,
+                TargetElement = targetElement,
+                DamagePerTick = damageAmount,
+                TickRate = tickRate,
+                TimeUntilNextTick = tickRate, // tickRate=0 → applies instantly in FixedUpdate
+                IsColliding = true,
+                LingerTimeRemaining = lingerDuration
             });
-
-            Debug.Log($"DamageSystem started DOT for {target}");
         }
 
-        public void StartLinger(IDamageable target, float lingerDuration)
+        // Trigger linger after exit
+        public void StartLinger(int entityId, float lingerDuration)
         {
             foreach (var effect in activeEffects)
             {
-                if (effect.target == target && effect.isColliding)
+                if (effect.EntityId == entityId && effect.IsColliding)
                 {
-                    effect.isColliding = false;
-
-                    // Only set lingerTimeRemaining if it hasn't already been set
-                    if (effect.lingerTimeRemaining <= 0f)
-                    {
-                        effect.lingerTimeRemaining = lingerDuration;
-                        Debug.Log($"DamageSystem starting linger for {target} ({lingerDuration}s)");
-                    }
+                    effect.IsColliding = false;
+                    if (effect.LingerTimeRemaining <= 0f)
+                        effect.LingerTimeRemaining = lingerDuration;
                 }
             }
         }
 
-        public void RemoveAllEffectsForTarget(IDamageable target)
+        // Remove all effects for an entity
+        public void RemoveAllEffectsForTarget(int entityId)
         {
-            activeEffects.RemoveAll(e => e.target == target);
+            activeEffects.RemoveAll(e => e.EntityId == entityId);
         }
-    
-
-        public void RemoveEffectForTarget(IDamageable target)
-        {
-            var effect = activeEffects.Find(e => e.target == target);
-            if (effect != null)
-                activeEffects.Remove(effect);
-        }
-
-       
     }
-
 }

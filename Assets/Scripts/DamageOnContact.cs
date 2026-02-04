@@ -3,13 +3,15 @@ using UnityEngine;
 
 using Scripts.Interface;
 
-public class DamageOnContact : MonoBehaviour , IDamageSource
+namespace Scripts.Systems
+{
+    public class DamageOnContact : MonoBehaviour, IDamageSource
     {
         [SerializeField] private Element element;
         [SerializeField] private int damagePerTick;
         [SerializeField] private float tickRate;
-        [SerializeField] private float lingerDuration; // how long DOT continues after exit
-        
+        [SerializeField] private float lingerDuration;
+
         public Element Element => element;
         public int DamagePerTick => damagePerTick;
         public float TickRate => tickRate;
@@ -17,75 +19,54 @@ public class DamageOnContact : MonoBehaviour , IDamageSource
 
         private DamageSystem damageSystem;
 
-        void Start()
+        private void Start()
         {
             damageSystem = FindAnyObjectByType<DamageSystem>();
         }
 
-        void OnCollisionEnter(Collision other)
+        private void HandleCollision(IDamageable target, GameObject other)
         {
+            if (target.Element == Element) return; // same-element immunity
 
-            if (!other.gameObject.TryGetComponent<IDamageable>(out var target))
-            {
-                return;
-            }
-
-            if (!TryGetComponent<IDamageSource>(out var source))
-            {
-                return;
-            }
-
-            // Commented this out because it is applying a rule, which it shouldn't know. 
-            // DOC doesn't need to know who can hurt who, it just needs to send info.
-            // ... I put it back in because the refactor for damage-rules would be getting ahead of myself
-            //// Same-element immunity
-            if (target.Element == source.Element)
-            {
-                return;
-            }
-
-            damageSystem.ApplyDamageOverTime( target, source.DamagePerTick, source.TickRate, lingerDuration);
+            damageSystem.ApplyDamage(
+                target,
+                other,
+                target.EntityId,
+                target.Element,
+                damagePerTick,
+                tickRate,
+                lingerDuration
+            );
         }
 
-        void OnCollisionExit(Collision other)
+        private void HandleExit(IDamageable target)
+        {
+            damageSystem.StartLinger(target.EntityId, lingerDuration);
+        }
+
+        private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.TryGetComponent<IDamageable>(out var target))
-            {
-                damageSystem.StartLinger(target, lingerDuration);
-            }
+                HandleCollision(target,other.gameObject);
+            
         }
 
-
-        void OnTriggerEnter(Collider other)
-        {
-
-            if (!other.gameObject.TryGetComponent<IDamageable>(out var target))
-            {
-                return;
-            }
-
-            if (!TryGetComponent<IDamageSource>(out var source))
-            {
-                return;
-            }
-
-            // Same-element immunity
-            if (target.Element == source.Element)
-            {
-                return;
-            }
-
-            damageSystem.ApplyDamageOverTime(target, source.DamagePerTick, source.TickRate, lingerDuration);
-        }
-
-        void OnTriggerExit(Collider other)
+        private void OnCollisionExit(Collision other)
         {
             if (other.gameObject.TryGetComponent<IDamageable>(out var target))
-            {
-                damageSystem.StartLinger(target, lingerDuration);
-            }
+                HandleExit(target);
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent<IDamageable>(out var target))
+                HandleCollision(target,other.gameObject);
+        }
 
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent<IDamageable>(out var target))
+                HandleExit(target);
+        }
     }
-
+}
