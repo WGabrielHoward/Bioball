@@ -8,7 +8,6 @@ namespace Scripts.Interface
         Element Element { get; }
         int DamagePerTick { get; }
         float TickRate { get; }
-        //GameObject Owner { get; }
     }
 
 }

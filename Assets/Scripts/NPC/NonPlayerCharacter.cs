@@ -46,21 +46,17 @@ namespace Scripts.NPC
 
         }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        protected virtual void Start()
-        {
-            
-        }
-
+       
         // Update is called once per frame
         void FixedUpdate()
         {
             npcData.Position = this.transform.position;
             npcData.TargetPosition = target.transform.position;
             
+            // I should get rid of this and move the z-kill to a global rule-set
             if (transform.position.y < -10)
             {
-                ApplyDamage(this.health + 1);
+                HealthSystem.Instance.ApplyDamage(npcData.EntityId, health + 1);
             }
         }
 
@@ -75,25 +71,8 @@ namespace Scripts.NPC
             npcData.TargetPosition = target.transform.position;
 
         }
-
-
-        protected virtual void Death()
-        {            
-            Destroy(gameObject);
-        }
-
-        public void TakeDamage(int damage)
-        {            
-            HealthSystem.Instance.ApplyDamage(npcData.EntityId,damage);
-        }
-
-        public void ApplyDamage(int amount)
-        {
-
-            TakeDamage(amount);
-        }
-
-        
+           
+               
     }
 
 }

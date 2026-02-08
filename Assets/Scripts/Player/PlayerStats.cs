@@ -84,17 +84,11 @@ namespace Scripts.Player
                 GameStateSystem.Instance.TriggerDefeat();
             }
         }
-
-        public void ApplyDamage(int amount)
-        {
-            // PlayerStats.ApplyDamage
-            Debug.Log("PlayerStats Apply damage: " + health);
-            TakeDamage(amount);
-        }
+               
 
         public void ApplyDamageAdapter(int entityId, int amount)
         {
-            ApplyDamage(amount);
+            TakeDamage(amount);
         }
 
         private void UpdateHealthText()

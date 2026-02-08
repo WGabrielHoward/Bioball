@@ -11,7 +11,6 @@ namespace Scripts.Interface
     {
         int EntityId { get; }
         Element Element { get; }
-        void ApplyDamage(int amount);
 
     }
 

@@ -69,15 +69,14 @@ namespace Scripts.Systems
 
             NPCData npc = entries[index].Data;
             UnityEngine.Debug.Log($"HealthSystem applied damage {amount} to {entityId}.");
+                        
+            npc.Health -= amount;
 
             if (npc.Health <= 0)
             {
                 HandleDeath(entityId);
                 return;
             }
-
-            npc.Health -= amount;
-                        
         }
 
         private void HandleDeath(int entityId)

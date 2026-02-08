@@ -13,7 +13,6 @@ using Scripts.Interface;
         public Element Element => element;
         public int DamagePerTick => damagePerTick;
         public float TickRate => tickRate;
-        //public GameObject Owner => this.gameObject;
 
         private DamageSystem damageSystem;
 
