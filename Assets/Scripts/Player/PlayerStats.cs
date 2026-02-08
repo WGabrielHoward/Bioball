@@ -8,91 +8,42 @@ namespace Scripts.Player
 {
     public class PlayerStats : MonoBehaviour, IDamageable
     {
-        private PlayerScriptManager playSMan;
-        private PlayerController playerController;
         protected Element element;
         public Element Element => element;
         public int EntityId { get; private set; }
-
-        [Header("Player Stats")]
-        private float forwardSpeed;
         private int health;
-
         LevelCanvas levelCanvas;
+
+        public void Initialize(int startingHealth)
+        {
+            health = startingHealth;
+            UpdateUI();
+        }
 
         private void Awake()
         {
-            playSMan = gameObject.GetComponent<PlayerScriptManager>();
-
             EntityId = EntityIdGenerator.Next();
             if (DamageRouter.Instance != null)
             {
-                DamageRouter.Instance.Register(EntityId, ApplyDamageAdapter);
+                DamageRouter.Instance.Register(EntityId, ApplyDamage);
             }
 
         }
-        private void Start()
+                      
+
+        public void ApplyDamage(int entityId, int damage)
         {
-            levelCanvas = FindAnyObjectByType<LevelCanvas>();
-            playerController = playSMan.GetPlayerController();
-            PullForwardSpeed();
-            PullHealth();
-
-        }
-
-
-        public float GetForwardSpeed()
-        {
-            return forwardSpeed;
-        }
-
-        public void SetForwardSpeed(float newSpeed)
-        {
-            forwardSpeed = newSpeed;
-            playerController.SetForwardSpeed(forwardSpeed);
-        }
-
-        private void PullForwardSpeed()
-        {
-            forwardSpeed = playSMan.GetForwardSpeed();
-        }
-
-        public Element GetElement()
-        {
-            return this.element;
-        }
-
-        protected void SetElement(Element newElement)
-        {
-            this.element = newElement;
-        }
-
-        private void PullHealth()
-        {
-            health = playSMan.GetHealth();
-        }
-
-
-        public void TakeDamage(int damage)
-        {
-            // PlayerStats.TakeDamage
-            Debug.Log("PlayerStats took damage: " + health);
             health -= damage;
-            UpdateHealthText();
+            UpdateUI();
             if (health <= 0)
             {
                 GameStateSystem.Instance.TriggerDefeat();
             }
         }
-               
 
-        public void ApplyDamageAdapter(int entityId, int amount)
+        private void UpdateUI()
         {
-            TakeDamage(amount);
-        }
-
-        private void UpdateHealthText()
-        {
+            levelCanvas = FindAnyObjectByType<LevelCanvas>();
             if (levelCanvas)
             {
                 levelCanvas.HealthUpdate(health);

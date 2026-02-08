@@ -1,8 +1,7 @@
 
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-
-using Scripts.NPC;
-
+using UnityEngine.InputSystem.XR;
 namespace Scripts.Player
 {
     public class PlayerScriptManager : MonoBehaviour
@@ -27,60 +26,11 @@ namespace Scripts.Player
             playerStats =       gameObject.AddComponent<PlayerStats>();
             rbPlayer =          this.gameObject.GetComponent<Rigidbody>();
             focalPoint =        GameObject.Find("FocalPoint");
+
+            playerController.Initialize(rbPlayer, focalPoint, defaultForwardSpeed);
+            playerStats.Initialize(defaultHealth);
+            playerColTrig.Initialize(playerEffects);
         }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            //PushPlayerInfo();
-        }
-
-        void PushPlayerInfo()
-        {
-            playerStats.SetForwardSpeed(defaultForwardSpeed);
-            // other info
-        }
-
-        // ------------------------------
-        // Getters & Setters
-        // ------------------------------
-        public float GetForwardSpeed()
-        {
-            return defaultForwardSpeed;
-        }
-
-        public int GetHealth()
-        {
-            return defaultHealth;
-        }
-
-        public GameObject GetFocalPoint()
-        {
-            return focalPoint;
-        }
-
-        public Rigidbody GetRigidbody()
-        {
-            return rbPlayer;
-        }
-
-        public PlayerController GetPlayerController()
-        {
-            return playerController;
-        }
-
-        public PlayerColliderAndTrigger GetPlayerColTrig()
-        {
-            return playerColTrig;
-        }
-
-        public PlayerEffects GetPlayerEffects()
-        {
-            return playerEffects;
-        }
-        public PlayerStats GetPlayerStats()
-        {
-            return playerStats;
-        }
     }
 }

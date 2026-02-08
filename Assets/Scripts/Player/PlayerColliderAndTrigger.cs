@@ -1,7 +1,6 @@
 
 using UnityEngine;
 
-using Scripts.NPC;
 using Scripts.Systems;
 using Scripts.Interface;
 
@@ -11,16 +10,10 @@ namespace Scripts.Player
     {
 
         private PlayerEffects playerEffects;
-        private PlayerScriptManager playSMan;
 
-        private void Awake()
+        public void Initialize(PlayerEffects effects)
         {
-            playSMan = gameObject.GetComponent<PlayerScriptManager>();
-            
-        }
-        private void Start()
-        {
-            playerEffects = playSMan.GetPlayerEffects();
+            this.playerEffects = effects;
         }
 
 
@@ -37,10 +30,6 @@ namespace Scripts.Player
             }
         }
 
-        private void OnCollisionStay(Collision other)
-        {
-            
-        }
 
         private void OnCollisionExit(Collision other)
         {
@@ -62,12 +51,6 @@ namespace Scripts.Player
             {
                 GameStateSystem.Instance.TriggerVictory();
             }
-            
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-           
             
         }
 
