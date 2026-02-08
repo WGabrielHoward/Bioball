@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace Assets.Scripts.Data
+namespace Scripts.Data
 {
     public class NPCData
     {

@@ -2,9 +2,9 @@
 using UnityEngine;
 
 using Scripts.Interface;
-using Assets.Scripts.Systems;
+using Scripts.Systems;
 
-using Assets.Scripts.Data;
+using Scripts.Data;
 
 namespace Scripts.Systems
 {
@@ -20,30 +20,20 @@ namespace Scripts.Systems
             {
                 var effect = activeEffects[i];
 
-                // Make sure target is alive/real
-                if (effect.TargetObject == null)
-                {
-                    activeEffects.RemoveAt(i);
-                    continue;
-                }
-
-                // Apply damage
                 if (effect.IsInstant)
                 {
-                    // Instant damage applies once immediately
-                    HealthSystem.Instance.ApplyDamage(effect.EntityId, effect.DamagePerTick);
+                    DamageRouter.Instance.ApplyDamage(effect.EntityId, effect.DamagePerTick);
                     activeEffects.RemoveAt(i);
                     continue;
                 }
 
-                // Tickable DOT
                 effect.TimeUntilNextTick -= dt;
                 if (effect.TimeUntilNextTick <= 0f)
                 {
-                    //HealthSystem.Instance.ApplyDamage(effect.EntityId, effect.DamagePerTick);
-                    effect.Target.ApplyDamage(effect.DamagePerTick);
+                    DamageRouter.Instance.ApplyDamage(effect.EntityId, effect.DamagePerTick);
                     effect.TimeUntilNextTick = effect.TickRate;
                 }
+
 
                 // Linger / expiration
                 if (!effect.IsColliding)
@@ -60,8 +50,6 @@ namespace Scripts.Systems
 
         // Unified method: DOT or instant
         public void ApplyDamage(
-            IDamageable target,
-            GameObject targetObject,
             int entityId,
             Element targetElement,
             int damageAmount,
@@ -71,8 +59,6 @@ namespace Scripts.Systems
         {
             activeEffects.Add(new ActiveDamageEffect
             {
-                Target = target,
-                TargetObject = targetObject,
                 EntityId = entityId,
                 TargetElement = targetElement,
                 DamagePerTick = damageAmount,

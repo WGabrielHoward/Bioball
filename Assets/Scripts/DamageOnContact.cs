@@ -3,8 +3,6 @@ using UnityEngine;
 
 using Scripts.Interface;
 
-namespace Scripts.Systems
-{
     public class DamageOnContact : MonoBehaviour, IDamageSource
     {
         [SerializeField] private Element element;
@@ -15,7 +13,7 @@ namespace Scripts.Systems
         public Element Element => element;
         public int DamagePerTick => damagePerTick;
         public float TickRate => tickRate;
-        public GameObject Owner => this.gameObject;
+        //public GameObject Owner => this.gameObject;
 
         private DamageSystem damageSystem;
 
@@ -29,8 +27,6 @@ namespace Scripts.Systems
             if (target.Element == Element) return; // same-element immunity
 
             damageSystem.ApplyDamage(
-                target,
-                other,
                 target.EntityId,
                 target.Element,
                 damagePerTick,
@@ -69,4 +65,4 @@ namespace Scripts.Systems
                 HandleExit(target);
         }
     }
-}
+

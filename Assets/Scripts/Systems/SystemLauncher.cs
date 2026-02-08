@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using Assets.Scripts.Systems;
-using Assets.Scripts.Data;
+using Scripts.Systems;
+using Scripts.Data;
 using Scripts.NPC;
 using System.Collections.Generic;
-using Scripts.Systems;
 
 public class SystemLauncher : MonoBehaviour
 {

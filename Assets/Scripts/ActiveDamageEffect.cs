@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ActiveDamageEffect
 {
-    //Temporarily adding back in
-    public IDamageable Target;
-    public GameObject TargetObject;
 
     public int EntityId;               // HealthSystem identifier
     public Element TargetElement;      // For immunity / rules

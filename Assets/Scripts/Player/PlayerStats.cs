@@ -3,7 +3,6 @@ using UnityEngine;
 
 using Scripts.Systems;
 using Scripts.Interface;
-using Assets.Scripts;
 
 namespace Scripts.Player
 {
@@ -26,6 +25,10 @@ namespace Scripts.Player
             playSMan = gameObject.GetComponent<PlayerScriptManager>();
 
             EntityId = EntityIdGenerator.Next();
+            if (DamageRouter.Instance != null)
+            {
+                DamageRouter.Instance.Register(EntityId, ApplyDamageAdapter);
+            }
 
         }
         private void Start()
@@ -36,6 +39,7 @@ namespace Scripts.Player
             PullHealth();
 
         }
+
 
         public float GetForwardSpeed()
         {
@@ -86,6 +90,11 @@ namespace Scripts.Player
             // PlayerStats.ApplyDamage
             Debug.Log("PlayerStats Apply damage: " + health);
             TakeDamage(amount);
+        }
+
+        public void ApplyDamageAdapter(int entityId, int amount)
+        {
+            ApplyDamage(amount);
         }
 
         private void UpdateHealthText()

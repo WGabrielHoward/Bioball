@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿
 
 namespace Scripts.Interface
 {
@@ -13,7 +8,7 @@ namespace Scripts.Interface
         Element Element { get; }
         int DamagePerTick { get; }
         float TickRate { get; }
-        GameObject Owner { get; }
+        //GameObject Owner { get; }
     }
 
 }

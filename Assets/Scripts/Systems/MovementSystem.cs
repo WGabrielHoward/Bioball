@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Data;
+﻿using Scripts.Data;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems
+namespace Scripts.Systems
 {
     
     public class MovementSystem : MonoBehaviour

@@ -1,9 +1,9 @@
 ﻿
-using Assets.Scripts.Data;
+using Scripts.Data;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Systems
+namespace Scripts.Systems
 {
     // Player isn't ready for this and DamageSystem isn't ready to split between different health pools...
     // so this isn't really doing anything for now but registering the npcs
@@ -63,25 +63,26 @@ namespace Assets.Scripts.Systems
 
         public void ApplyDamage(int entityId, int amount)
         {
+            
             if (!indexByEntity.TryGetValue(entityId, out int index))
                 return;
 
             NPCData npc = entries[index].Data;
-
-            if (npc.Health <= 0)
-                return; // already dead
-
-            npc.Health -= amount;
+            UnityEngine.Debug.Log($"HealthSystem applied damage {amount} to {entityId}.");
 
             if (npc.Health <= 0)
             {
-                npc.Health = 0;
                 HandleDeath(entityId);
+                return;
             }
+
+            npc.Health -= amount;
+                        
         }
 
         private void HandleDeath(int entityId)
         {
+            UnityEngine.Debug.Log($"HealthSystem HandleDeath of {entityId}.");
             OnEntityDied?.Invoke(entityId);
         }
     }

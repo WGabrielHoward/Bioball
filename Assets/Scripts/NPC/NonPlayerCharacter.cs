@@ -1,9 +1,9 @@
 
 using UnityEngine;
 using Scripts.Interface;
-using Assets.Scripts.Data;
-using Assets.Scripts.Systems;
-using Assets.Scripts;
+using Scripts.Data;
+using Scripts.Systems;
+using Scripts;
 
 namespace Scripts.NPC
 {
@@ -37,10 +37,13 @@ namespace Scripts.NPC
                 Position = transform.position,
                 AggroRange = aggroRange,
                 NPCType = npcType
+
             };
 
             SetTarget(null);
-            SelfRegister();
+
+            NPCManager.Instance.RegisterNPC( npcData.EntityId, gameObject, npcData, rbThis );
+
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,7 +60,7 @@ namespace Scripts.NPC
             
             if (transform.position.y < -10)
             {
-                Death();
+                ApplyDamage(this.health + 1);
             }
         }
 
@@ -73,63 +76,24 @@ namespace Scripts.NPC
 
         }
 
+
         protected virtual void Death()
-        {
+        {            
             Destroy(gameObject);
         }
 
-        private void OnDestroy()
-        {
-            SelfUnRegister();
-        }
-
         public void TakeDamage(int damage)
-        {
-            npcData.Health -= damage;
-            if (npcData.Health <= 0)
-            {
-                Death();
-            }
+        {            
+            HealthSystem.Instance.ApplyDamage(npcData.EntityId,damage);
         }
 
         public void ApplyDamage(int amount)
         {
+
             TakeDamage(amount);
         }
 
-        public void SelfRegister()
-        {
-            if (BehaviorSystem.Instance != null)
-            {
-                BehaviorSystem.Instance.Register(this.npcData.EntityId, npcData);
-            }
-            if (MovementSystem.Instance != null)
-            {
-                MovementSystem.Instance.Register(this.npcData.EntityId, npcData, this.rbThis);
-            }
-            if (HealthSystem.Instance != null)
-            {
-                HealthSystem.Instance.Register(npcData.EntityId, npcData);
-            }
-
-        }
-
-        public void SelfUnRegister()
-        {
-            if (BehaviorSystem.Instance != null)
-            {
-                BehaviorSystem.Instance.Unregister(this.npcData.EntityId);
-            }
-            if (MovementSystem.Instance != null)
-            {
-                MovementSystem.Instance.Unregister(this.npcData.EntityId);
-            }
-            if (HealthSystem.Instance != null)
-            {
-                HealthSystem.Instance.Unregister(this.npcData.EntityId);
-            }
-
-        }
+        
     }
 
 }
