@@ -17,30 +17,51 @@ public class LevelCanvas : MonoBehaviour
     public GameObject VictoryScreen;
     public GameObject PauseScreen;
 
-    private LevelManager pMan;
+    public static LevelManager pMan;
+    public static PersistentData pData;
+
 
     //Start is called before the first frame update
     void Start()
     {
-        pMan = LevelManager.ManInstance;
+        pMan = LevelManager.Instance;
+        pData = PersistentData.Instance;
         PlayingSetup();
     }
 
-    // change the game over update to a listerner or event (check that it is actually better)
-    void Update()
-    {
-        
-    }
-
+    
     private void OnEnable()
     {
-        GameStateSystem.Instance.OnStateChanged += OnGameStateChanged;
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnScoreChanged += ScoreUpdate;
+            LevelManager.Instance.OnScoreChanged += TotalScoreUpdate;
+        }
+        if (PersistentData.Instance != null)
+        {
+            PersistentData.Instance.TopScoreChanged += TopScoreUpdate;
+        }
+        if (GameStateSystem.Instance != null)
+        {
+            GameStateSystem.Instance.OnStateChanged += OnGameStateChanged;
+        }
     }
 
     private void OnDisable()
     {
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnScoreChanged -= ScoreUpdate;
+            LevelManager.Instance.OnScoreChanged -= TotalScoreUpdate;
+        }
+        if (PersistentData.Instance != null)
+        {
+            PersistentData.Instance.TopScoreChanged -= TopScoreUpdate;
+        }
         if (GameStateSystem.Instance != null)
+        {
             GameStateSystem.Instance.OnStateChanged -= OnGameStateChanged;
+        }
     }
 
     // Now we only call the screen setActives when state is changed
@@ -86,21 +107,23 @@ public class LevelCanvas : MonoBehaviour
         TopScore.gameObject.SetActive(true);
     }
 
-    public void ScoreUpdate()
+    public void ScoreUpdate(int currentLevelScore)
     {
-        ScoreText.text = $"Score : {pMan.GetScore()}";
+        UnityEngine.Debug.Log($"LevelCanvas: ScoreUpdate({currentLevelScore})");
+        ScoreText.text = $"Score : {currentLevelScore}";
     }
 
-    public void TotalScoreUpdate()
+    public void TotalScoreUpdate(int levelScore)
     {
-        // pMan.GetTotalScore() returns sum of all prior and current level points
-        TotalScoreText.text = $"Total Score: {pMan.GetTotalScore()}";
+        UnityEngine.Debug.Log($"LevelCanvas: TotalScoreUpdate({levelScore})");
+        TotalScoreText.text = $"Total Score: {pData.GetTotalScore()+levelScore}";
     }
 
-    public void TopScoreUpdate()
+    public void TopScoreUpdate(string topName, int topScore)
     {
         //pMan.Dump();
-        TopScore.text = pMan.GetTopScoreText();
+        UnityEngine.Debug.Log($"LevelCanvas: TopScoreUpdate({topName}, {topScore})");
+        TopScore.text =  $"Top Score: {topName} {TopScore}";
     }
 
     public void HealthUpdate(int health)

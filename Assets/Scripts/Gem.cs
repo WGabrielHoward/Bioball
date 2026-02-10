@@ -16,7 +16,7 @@ public class Gem : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //onDestroyed.Invoke(pointValue);
-            LevelManager.ManInstance.AddPoints(pointValue);
+            LevelManager.Instance.AddPoints(pointValue);
             Destroy(gameObject);
         }
 
@@ -27,7 +27,7 @@ public class Gem : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //onDestroyed.Invoke(pointValue);
-            LevelManager.ManInstance.AddPoints(pointValue);
+            LevelManager.Instance.AddPoints(pointValue);
             Destroy(gameObject);
         }
 

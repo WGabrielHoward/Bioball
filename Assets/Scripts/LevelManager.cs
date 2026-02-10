@@ -6,43 +6,44 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private int m_Points;
+    private int currentLevelPoints;
     //private GameState lastState;
 
     public static PersistentData pData;
-    public static LevelManager ManInstance;
+    public static LevelManager Instance;
 
     private LevelCanvas levelCanvas;
     private int buildIndex;
     private int nextSceneIndex;
 
+    public event System.Action<int> OnScoreChanged;
+
     private void Awake()
     {
-        if (ManInstance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        m_Points = 0;
+        currentLevelPoints = 0;
 
-        ManInstance = this;
-        pData = PersistentData.Instance;
-        //lastState = GameState.Undefined;
-}
+        Instance = this;
+        
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Points = 0;
+        pData = PersistentData.Instance;
         GameStateSystem.Instance.TriggerPlay();
 
         levelCanvas = FindAnyObjectByType<LevelCanvas>();
 
-        UpdateTotalScore();
-        UpdateTopScore();
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         nextSceneIndex = buildIndex + 1;
+
+        AddPoints(0); // sends signal to update canvas
     }
 
     private void Update()
@@ -53,103 +54,60 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameStateSystem.Instance.OnStateChanged += OnGameStateChanged;
+        if (GameStateSystem.Instance != null)
+        {
+            GameStateSystem.Instance.OnStateChanged += OnGameStateChanged;
+        }
     }
 
     private void OnDisable()
     {
         if (GameStateSystem.Instance != null)
+        {
             GameStateSystem.Instance.OnStateChanged -= OnGameStateChanged;
+        }
     }
 
-
-    public void TriggerPlay()
+    public void AddPoints(int points)
     {
-        GameStateSystem.Instance.TriggerPlay();
+        // records
+        currentLevelPoints += points;
+        //OnScoreChanged?.Invoke(currentLevelPoints);
+        levelCanvas.ScoreUpdate(currentLevelPoints);
+        levelCanvas.TotalScoreUpdate(currentLevelPoints);
+
     }
 
     public void MainMenu()
     {
         SceneManager.LoadScene("TitleScreen"); // 0, should be TitleScreen
-        pData.TopScoreUpdate();
         GameStateSystem.Instance.TriggerPlay();
     }
 
     public void RestartLevel()
     {
+        AddPoints(-currentLevelPoints);
         SceneManager.LoadScene(buildIndex); // Restart this level
         GameStateSystem.Instance.TriggerPlay();
     }
 
     public void NextLevel()
     {
-        AddLevelToTotal();
+        pData.AddToTotalScore(currentLevelPoints);
+        
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(nextSceneIndex); // Next Level
-            pData.TopScoreUpdate();
         }
         else
         {
             SceneManager.LoadScene(0);  // 0, should be TitleScreen
-            pData.TopScoreUpdate();
         }
+
         GameStateSystem.Instance.TriggerPlay();
     }
 
-    
-    public void AddPoints(int points)
-    {
-        m_Points += points;
-        UpdateLevelScore();
-    }
-
-    public void AddLevelToTotal()
-    {
-        pData.AddToTotalScore(m_Points);
-        UpdateTopScore();
-    }
-    
-    public int GetScore()
-    {
-        return m_Points;
-    }
-
-    public int GetTotalScore()
-    {
-        // returns sum of total score and current level score
-        return pData.GetTotalScore() + m_Points;
-    }
-
-    public void UpdateLevelScore()
-    {
-        levelCanvas.ScoreUpdate();
-        UpdateTotalScore();
-    }
-
-    public void UpdateTotalScore()
-    {
-        levelCanvas.TotalScoreUpdate();
-    }
-
-    public void UpdateTopScore()
-    {
-        levelCanvas.TopScoreUpdate();
-    }
-
-    public string GetTopScoreText()
-    {
-        string topScoreText = $"Top Score: {pData.GetTopName()} {pData.GetTopPoints()}";
-        return topScoreText;
-    }
-
-
-    public void Dump()
-    {
-        UnityEngine.Debug.Log("mainManager Exists!");
-
-    }
-
+  
     void OnGameStateChanged(GameState from, GameState to)
     {
         switch (to)
@@ -223,6 +181,7 @@ public class LevelManager : MonoBehaviour
             MainMenu();
         }
     }
+
     void HandleVictoryInput()
     {
         if (Input.GetKeyDown(KeyCode.R))

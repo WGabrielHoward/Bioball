@@ -9,6 +9,7 @@ public class PersistentData : MonoBehaviour
 
     private int topPoints;
     private string topPointsName;
+    public event System.Action<string , int > TopScoreChanged;
 
     public static PersistentData Instance;
     private void Awake()
@@ -57,6 +58,8 @@ public class PersistentData : MonoBehaviour
             topPoints = playerTotalPoints;
             topPointsName = playerName;
             SaveTopScore();
+            //TopScoreChanged?.Invoke(playerName, playerTotalPoints);
+            
         }
     }
 
