@@ -1,71 +1,60 @@
-
-using UnityEngine;
-
-using Scripts.Systems;
 using Scripts.Interface;
+using Scripts.Systems;
+using UnityEngine;
 
 namespace Scripts.Player
 {
+    [RequireComponent(typeof(PlayerEffects))]
     public class PlayerColliderAndTrigger : MonoBehaviour
     {
-
         private PlayerEffects playerEffects;
 
-        //public void Initialize(PlayerEffects effects)
-        //{
-        //    this.playerEffects = effects;
-        //}
-
-        void Start()
+        private void Awake()
         {
-            this.playerEffects = gameObject.GetComponent<PlayerEffects>();
+            playerEffects = GetComponent<PlayerEffects>();
         }
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.TryGetComponent<IDamageSource>(out var elementSource))
-            {
-                Effect effect = ElementRules.GetStatusForElement(elementSource.Element);
-                playerEffects.EffectsSwitch(effect, true);
-            }
-            if (other.gameObject.CompareTag("Victory"))
-            {
-                GameStateSystem.Instance.TriggerVictory();
-            }
-        }
-
-
-        private void OnCollisionExit(Collision other)
-        {
-            if (other.gameObject.TryGetComponent<IDamageSource>(out var elementSource))
-            {
-                Effect effect = ElementRules.GetStatusForElement(elementSource.Element);
-                playerEffects.EffectsSwitch(effect, false);
-            }
+            HandleEnter(other.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent<IDamageSource>(out var elementSource))
-            {
-                Effect effect = ElementRules.GetStatusForElement(elementSource.Element);
-                playerEffects.EffectsSwitch(effect, true);
-            }
-            if (other.gameObject.CompareTag("Victory"))
-            {
-                GameStateSystem.Instance.TriggerVictory();
-            }
-            
+            HandleEnter(other.gameObject);
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            HandleExit(other.gameObject);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.TryGetComponent<IDamageSource>(out var elementSource))
+            HandleExit(other.gameObject);
+        }
+
+        private void HandleEnter(GameObject obj)
+        {
+            if (obj.TryGetComponent<IDamageSource>(out var source))
             {
-                Effect effect = ElementRules.GetStatusForElement(elementSource.Element);
-                playerEffects.EffectsSwitch(effect, false);
+                var effect = ElementRules.GetStatusForElement(source.Element);
+                playerEffects.EffectsSwitch(effect, true);
+            }
+
+            if (obj.CompareTag("Victory"))
+            {
+                GameStateSystem.Instance.TriggerVictory();
             }
         }
 
+        private void HandleExit(GameObject obj)
+        {
+            if (obj.TryGetComponent<IDamageSource>(out var source))
+            {
+                var effect = ElementRules.GetStatusForElement(source.Element);
+                playerEffects.EffectsSwitch(effect, false);
+            }
+        }
     }
 }

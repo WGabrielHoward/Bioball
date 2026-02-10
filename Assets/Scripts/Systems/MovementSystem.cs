@@ -10,7 +10,8 @@ namespace Scripts.Systems
         private class MovementEntry
         {
             public int EntityId;
-            public NPCData Data;
+            public bool isPlayer;
+            public NPCData NPC;
             public Rigidbody Body;
         }
 
@@ -35,17 +36,51 @@ namespace Scripts.Systems
 
         private void FixedUpdate()
         {
+
+            //for (int i = 0; i < entries.Count; i++)
+            //{
+            //    var entry = entries[i];
+            //    var npc = entry.Data;
+
+            //    if (npc.Intent == NPCIntent.Idle)
+            //        continue;
+
+            //    if (entry.Body == null)
+            //        continue;
+            //    entry.Body.AddForce(npc.DesiredDirection * npc.MoveForce);
+            //}
             for (int i = 0; i < entries.Count; i++)
             {
                 var entry = entries[i];
-                var npc = entry.Data;
-
-                if (npc.Intent == NPCIntent.Idle)
-                    continue;
 
                 if (entry.Body == null)
                     continue;
-                entry.Body.AddForce(npc.DesiredDirection * npc.MoveForce);
+                // ───────── Player movement ─────────
+                if (entry.isPlayer)
+                {
+                    var player = PlayerRegistry.GetByEntityId(entry.EntityId);
+
+                    if (Mathf.Abs(player.MoveIntent) < 0.01f)
+                        continue;
+
+                    Vector3 forward = player.FocalPoint.forward;
+                    forward.y = 0f;
+                    forward.Normalize();
+
+                    entry.Body.AddForce(forward * player.MoveIntent * 5f);
+                }
+                // ───────── NPC movement ─────────
+                else
+                {
+                    var npc = entry.NPC;
+
+                    if (npc.Intent == NPCIntent.Idle)
+                        continue;
+
+                    entry.Body.AddForce( npc.DesiredDirection * npc.MoveForce);
+                }
+                
+                
             }
 
         }
@@ -59,8 +94,22 @@ namespace Scripts.Systems
             entries.Add(new MovementEntry
             {
                 EntityId = entityId,
-                Data = data,
+                NPC = data,
                 Body = body
+            });
+        }
+        public void RegisterPlayer(PlayerData data)
+        {
+            if (indexByEntity.ContainsKey(data.EntityId))
+                return;
+
+            indexByEntity[data.EntityId] = entries.Count;
+
+            entries.Add(new MovementEntry
+            {
+                EntityId = data.EntityId,
+                isPlayer = true,
+                Body = data.Rigidbody
             });
         }
 

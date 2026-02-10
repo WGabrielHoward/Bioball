@@ -5,9 +5,31 @@ namespace Scripts.Systems
 {
     public static class PlayerRegistry
     {
-        private static readonly List<PlayerData> players = new();
+        private static List<PlayerData> players = new();
 
-        public static IReadOnlyList<PlayerData> Players => players;
+        public static int Count => players.Count;
+
+        public static PlayerData Get(int index) => players[index];
+
+        public static void SetMoveIntent(int index, float move)
+        {
+            var p = players[index];
+            p.MoveIntent = move;
+            players[index] = p;
+        }
+        public static PlayerData GetByEntityId(int entityId)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (players[i].EntityId == entityId)
+                {
+                    return players[i];
+                }
+            }
+
+            return default;
+        }
+
 
         public static void Register(PlayerData data)
         {

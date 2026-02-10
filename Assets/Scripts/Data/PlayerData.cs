@@ -12,6 +12,6 @@ namespace Scripts.Systems
 
         // Intent (used later)
         public float MoveIntent;
-        public float RotateIntent;
+        //public float RotateIntent;
     }
 }

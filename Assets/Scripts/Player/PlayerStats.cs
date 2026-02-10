@@ -10,24 +10,20 @@ namespace Scripts.Player
     {
         protected Element element;
         public Element Element => element;
-        public int EntityId { get; private set; }
+        public int EntityId => entityId;
+
+        [SerializeField] private int maxHealth = 100;
+        private int entityId;
         private int health;
         LevelCanvas levelCanvas;
 
-        //public void Initialize(int startingHealth)
-        //{
-        //    health = startingHealth;
-        //    UpdateUI();
-        //}
-
         private void Awake()
         {
-            health = 100;
-            EntityId = EntityIdGenerator.Next();
-            if (DamageRouter.Instance != null)
-            {
-                DamageRouter.Instance.Register(EntityId, ApplyDamage);
-            }
+            health = maxHealth;
+            entityId = gameObject.GetComponent<PlayerEntity>().EntityId;
+            
+            DamageRouter.Instance?.Register(EntityId, ApplyDamage);
+            
             UpdateUI();
         }
                       
@@ -44,11 +40,7 @@ namespace Scripts.Player
 
         private void UpdateUI()
         {
-            levelCanvas = FindAnyObjectByType<LevelCanvas>();
-            if (levelCanvas)
-            {
-                levelCanvas.HealthUpdate(health);
-            }
+            FindAnyObjectByType<LevelCanvas>()?.HealthUpdate(health);
         }
 
     }
