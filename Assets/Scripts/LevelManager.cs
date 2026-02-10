@@ -6,28 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private int currentLevelPoints;
-
     public static PersistentData pData;
-    public static LevelManager levelMan;
 
     private int buildIndex;
     private int nextSceneIndex;
-
-    public event System.Action<int> OnScoreChanged;
-
-   
+    private int titleScreenIndex;
+       
     // Start is called before the first frame update
     void Start()
     {
         pData = PersistentData.Instance;
-        levelMan = this;
+
+        ScoreSystem.Instance.ResetLevelScore();
         GameStateSystem.Instance.TriggerPlay();
 
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         nextSceneIndex = buildIndex + 1;
-
-        AddPoints(0); // sends signal to update canvas
+        titleScreenIndex = 0; // SceneManager.GetSceneByName("TitleScreen").buildIndex;   // should be 0 aka main menu
     }
 
     private void Update()
@@ -38,10 +33,6 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (ScoreSystem.Instance != null)
-        {
-            ScoreSystem.Instance.OnScoreAdded += AddPoints;
-        }
         if (GameStateSystem.Instance != null)
         {
             GameStateSystem.Instance.OnStateChanged += OnGameStateChanged;
@@ -49,51 +40,32 @@ public class LevelManager : MonoBehaviour
     }
 
     private void OnDisable()
-    {
-        if (ScoreSystem.Instance != null)
-        {
-            ScoreSystem.Instance.OnScoreAdded -= AddPoints;
-        }
+    {        
         if (GameStateSystem.Instance != null)
         {
             GameStateSystem.Instance.OnStateChanged -= OnGameStateChanged;
         }
     }
 
-    public void AddPoints(int points)
+    public void LoadLevel(int levelIndex)
     {
-        UnityEngine.Debug.Log($"LevMan: AddPoints {points}");
-        currentLevelPoints += points;
-        OnScoreChanged?.Invoke(currentLevelPoints);
-    }
-
-    public void MainMenu()
-    {
-        SceneManager.LoadScene("TitleScreen"); // 0, should be TitleScreen
+        ScoreSystem.Instance.ResetLevelScore();
+        SceneManager.LoadScene(levelIndex);     // 0 = main menu, buildIndex = this level, nextSceneIndex = next level
         GameStateSystem.Instance.TriggerPlay();
     }
 
-    public void RestartLevel()
-    {
-        AddPoints(-currentLevelPoints);
-        SceneManager.LoadScene(buildIndex); // Restart this level
-        GameStateSystem.Instance.TriggerPlay();
-    }
 
     public void NextLevel()
     {
-        pData.AddToTotalScore(currentLevelPoints);
+        // adding currentLevelScore to total
+        pData.AddToTotalScore(ScoreSystem.Instance.GetCurrentLevelScore());
         
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        if(nextSceneIndex>= SceneManager.sceneCountInBuildSettings)
         {
-            SceneManager.LoadScene(nextSceneIndex); // Next Level
-        }
-        else
-        {
-            SceneManager.LoadScene(0);  // 0, should be TitleScreen
+            nextSceneIndex = titleScreenIndex;
         }
 
-        GameStateSystem.Instance.TriggerPlay();
+        LoadLevel(nextSceneIndex);
     }
 
   
@@ -147,15 +119,15 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            GameStateSystem.Instance.TriggerPlay();
+            GameStateSystem.Instance.TriggerPlay(); // play
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            RestartLevel();
+            LoadLevel(buildIndex);                  // restart level
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            MainMenu();
+            LoadLevel(titleScreenIndex);            // go to main menu
         }
     }
 
@@ -163,11 +135,11 @@ public class LevelManager : MonoBehaviour
     {        
         if (Input.GetKeyDown(KeyCode.R))
         {
-            RestartLevel();
+            LoadLevel(buildIndex);                  // restart level
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            MainMenu();
+            LoadLevel(titleScreenIndex);            // go to main menu
         }
     }
 
@@ -175,15 +147,15 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            RestartLevel();
+            LoadLevel(buildIndex);                  // restart level
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            MainMenu();
+            LoadLevel(titleScreenIndex);            // go to main menu
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            NextLevel();
+            NextLevel();                            // go to next level
         }
     }
 

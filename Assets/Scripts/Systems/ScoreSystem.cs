@@ -8,7 +8,9 @@ namespace Scripts.Systems
     {
         public static ScoreSystem Instance { get; private set; }
 
-        public event Action<int> OnScoreAdded;
+        public event Action<int> OnScoreChanged;
+
+        private int currentLevelScore;
 
         private void Awake()
         {
@@ -20,12 +22,25 @@ namespace Scripts.Systems
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+        }
+
+        public void ResetLevelScore()
+        {
+            currentLevelScore = 0;
+            OnScoreChanged?.Invoke(currentLevelScore);
         }
 
         public void AddScore(int points)
         {
-            UnityEngine.Debug.Log($"ScoreSystem: AddScore {points}");
-            OnScoreAdded?.Invoke(points);
+            currentLevelScore += points;
+            Debug.Log($"ScoreSystem: score = {currentLevelScore}");
+            OnScoreChanged?.Invoke(currentLevelScore);
+        }
+
+        public int GetCurrentLevelScore()
+        {
+            return currentLevelScore;
         }
     }
 }

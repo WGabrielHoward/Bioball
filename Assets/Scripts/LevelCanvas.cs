@@ -17,12 +17,10 @@ public class LevelCanvas : MonoBehaviour
     public GameObject VictoryScreen;
     public GameObject PauseScreen;
 
-    private LevelManager pMan;
     private PersistentData pData;
 
     void Awake()
     {
-        pMan = FindAnyObjectByType<LevelManager>();
         pData = PersistentData.Instance;
     }
 
@@ -39,10 +37,10 @@ public class LevelCanvas : MonoBehaviour
     
     private void OnEnable()
     {
-        if (pMan != null)
+        if (ScoreSystem.Instance != null)
         {   
-            pMan.OnScoreChanged += ScoreUpdate;
-            pMan.OnScoreChanged += TotalScoreUpdate;
+            ScoreSystem.Instance.OnScoreChanged += ScoreUpdate;
+            ScoreSystem.Instance.OnScoreChanged += TotalScoreUpdate;
         }
         if (PersistentData.Instance != null)
         {
@@ -56,10 +54,10 @@ public class LevelCanvas : MonoBehaviour
 
     private void OnDisable()
     {
-        if (pMan != null)
+        if (ScoreSystem.Instance != null)
         {   
-            pMan.OnScoreChanged -= ScoreUpdate;
-            pMan.OnScoreChanged -= TotalScoreUpdate;
+            ScoreSystem.Instance.OnScoreChanged -= ScoreUpdate;
+            ScoreSystem.Instance.OnScoreChanged -= TotalScoreUpdate;
         }
         if (PersistentData.Instance != null)
         {
