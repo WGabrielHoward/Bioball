@@ -11,11 +11,15 @@ namespace Scripts.Player
 
         private PlayerEffects playerEffects;
 
-        public void Initialize(PlayerEffects effects)
-        {
-            this.playerEffects = effects;
-        }
+        //public void Initialize(PlayerEffects effects)
+        //{
+        //    this.playerEffects = effects;
+        //}
 
+        void Start()
+        {
+            this.playerEffects = gameObject.GetComponent<PlayerEffects>();
+        }
 
         private void OnCollisionEnter(Collision other)
         {

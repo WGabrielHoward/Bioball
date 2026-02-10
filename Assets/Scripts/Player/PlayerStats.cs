@@ -14,20 +14,21 @@ namespace Scripts.Player
         private int health;
         LevelCanvas levelCanvas;
 
-        public void Initialize(int startingHealth)
-        {
-            health = startingHealth;
-            UpdateUI();
-        }
+        //public void Initialize(int startingHealth)
+        //{
+        //    health = startingHealth;
+        //    UpdateUI();
+        //}
 
         private void Awake()
         {
+            health = 100;
             EntityId = EntityIdGenerator.Next();
             if (DamageRouter.Instance != null)
             {
                 DamageRouter.Instance.Register(EntityId, ApplyDamage);
             }
-
+            UpdateUI();
         }
                       
 

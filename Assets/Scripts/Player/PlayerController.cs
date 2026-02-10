@@ -9,11 +9,11 @@ namespace Scripts.Player
         private float forwardSpeed;
         private GameObject focalPoint;
 
-        public void Initialize(Rigidbody rb, GameObject focalPoint, float speed)
+        void Start()
         {
-            this.rbPlayer = rb;
-            this.focalPoint = focalPoint;
-            this.forwardSpeed = speed;
+            rbPlayer = gameObject.GetComponent<Rigidbody>();
+            forwardSpeed = 5f;
+            focalPoint = GameObject.Find("FocalPoint");
         }
 
 
