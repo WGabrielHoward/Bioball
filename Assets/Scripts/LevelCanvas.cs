@@ -19,14 +19,19 @@ public class LevelCanvas : MonoBehaviour
 
     public static LevelManager pMan;
     public static PersistentData pData;
-
+    public static LevelCanvas Instance;
 
     //Start is called before the first frame update
     void Start()
     {
         pMan = LevelManager.Instance;
         pData = PersistentData.Instance;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         PlayingSetup();
+        TopScoreUpdate(pData.GetTopName(), pData.GetTopPoints());
     }
 
     
@@ -99,8 +104,6 @@ public class LevelCanvas : MonoBehaviour
         HealthText.gameObject.SetActive(true);
     }
 
-    // Screen actives called outside of this
-    // only used for paused and victory right now
     private void NotPlayingSetup()
     {
         TotalScoreText.gameObject.SetActive(true);
@@ -123,7 +126,7 @@ public class LevelCanvas : MonoBehaviour
     {
         //pMan.Dump();
         UnityEngine.Debug.Log($"LevelCanvas: TopScoreUpdate({topName}, {topScore})");
-        TopScore.text =  $"Top Score: {topName} {TopScore}";
+        TopScore.text =  ($"Top Score: {topName} {topScore}");
     }
 
     public void HealthUpdate(int health)
