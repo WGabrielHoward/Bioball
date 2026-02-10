@@ -7,38 +7,22 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     private int currentLevelPoints;
-    //private GameState lastState;
 
     public static PersistentData pData;
-    public static LevelManager Instance;
+    public static LevelManager levelMan;
 
-    private LevelCanvas levelCanvas;
     private int buildIndex;
     private int nextSceneIndex;
 
     public event System.Action<int> OnScoreChanged;
 
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        currentLevelPoints = 0;
-
-        Instance = this;
-        
-    }
-
+   
     // Start is called before the first frame update
     void Start()
     {
         pData = PersistentData.Instance;
+        levelMan = this;
         GameStateSystem.Instance.TriggerPlay();
-
-        levelCanvas = FindAnyObjectByType<LevelCanvas>();
 
         buildIndex = SceneManager.GetActiveScene().buildIndex;
         nextSceneIndex = buildIndex + 1;
@@ -54,6 +38,10 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
+        if (ScoreSystem.Instance != null)
+        {
+            ScoreSystem.Instance.OnScoreAdded += AddPoints;
+        }
         if (GameStateSystem.Instance != null)
         {
             GameStateSystem.Instance.OnStateChanged += OnGameStateChanged;
@@ -62,6 +50,10 @@ public class LevelManager : MonoBehaviour
 
     private void OnDisable()
     {
+        if (ScoreSystem.Instance != null)
+        {
+            ScoreSystem.Instance.OnScoreAdded -= AddPoints;
+        }
         if (GameStateSystem.Instance != null)
         {
             GameStateSystem.Instance.OnStateChanged -= OnGameStateChanged;
@@ -70,12 +62,9 @@ public class LevelManager : MonoBehaviour
 
     public void AddPoints(int points)
     {
-        // records
+        UnityEngine.Debug.Log($"LevMan: AddPoints {points}");
         currentLevelPoints += points;
-        //OnScoreChanged?.Invoke(currentLevelPoints);
-        levelCanvas.ScoreUpdate(currentLevelPoints);
-        levelCanvas.TotalScoreUpdate(currentLevelPoints);
-
+        OnScoreChanged?.Invoke(currentLevelPoints);
     }
 
     public void MainMenu()

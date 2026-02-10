@@ -33,7 +33,7 @@ public class TitleMenuUI : MonoBehaviour
         {
             PersistentData.Instance.playerName = playerName.text.ToString();
         }
-        LevelManager.Instance.NextLevel();
+        LevelManager.levelMan.NextLevel();
     }
 
     public void TopScoreUpdate()

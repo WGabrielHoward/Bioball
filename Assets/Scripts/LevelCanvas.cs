@@ -17,19 +17,21 @@ public class LevelCanvas : MonoBehaviour
     public GameObject VictoryScreen;
     public GameObject PauseScreen;
 
-    public static LevelManager pMan;
-    public static PersistentData pData;
-    public static LevelCanvas Instance;
+    private LevelManager pMan;
+    private PersistentData pData;
+
+    void Awake()
+    {
+        pMan = FindAnyObjectByType<LevelManager>();
+        pData = PersistentData.Instance;
+    }
 
     //Start is called before the first frame update
     void Start()
     {
-        pMan = LevelManager.Instance;
-        pData = PersistentData.Instance;
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        //pMan = FindAnyObjectByType<LevelManager>();
+        //pData = PersistentData.Instance;
+        
         PlayingSetup();
         TopScoreUpdate(pData.GetTopName(), pData.GetTopPoints());
     }
@@ -37,10 +39,10 @@ public class LevelCanvas : MonoBehaviour
     
     private void OnEnable()
     {
-        if (LevelManager.Instance != null)
-        {
-            LevelManager.Instance.OnScoreChanged += ScoreUpdate;
-            LevelManager.Instance.OnScoreChanged += TotalScoreUpdate;
+        if (pMan != null)
+        {   
+            pMan.OnScoreChanged += ScoreUpdate;
+            pMan.OnScoreChanged += TotalScoreUpdate;
         }
         if (PersistentData.Instance != null)
         {
@@ -54,10 +56,10 @@ public class LevelCanvas : MonoBehaviour
 
     private void OnDisable()
     {
-        if (LevelManager.Instance != null)
-        {
-            LevelManager.Instance.OnScoreChanged -= ScoreUpdate;
-            LevelManager.Instance.OnScoreChanged -= TotalScoreUpdate;
+        if (pMan != null)
+        {   
+            pMan.OnScoreChanged -= ScoreUpdate;
+            pMan.OnScoreChanged -= TotalScoreUpdate;
         }
         if (PersistentData.Instance != null)
         {

@@ -58,9 +58,8 @@ public class PersistentData : MonoBehaviour
             topPoints = playerTotalPoints;
             topPointsName = playerName;
             SaveTopScore();
-            //TopScoreChanged?.Invoke(playerName, playerTotalPoints);
-            LevelCanvas.Instance.TopScoreUpdate(playerName, playerTotalPoints);
-            
+            TopScoreChanged?.Invoke(playerName, playerTotalPoints);
+                        
         }
     }
 
