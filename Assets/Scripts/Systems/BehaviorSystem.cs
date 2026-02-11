@@ -87,6 +87,7 @@ namespace Scripts.Systems
                 if (toTarget.sqrMagnitude < npc.AggroRange * npc.AggroRange)
                 {
                     npc.Intent = NPCIntent.Flee;
+                    // asking npc for health... is this the right call? (because right now healthSystem is trying to update npcHealth)
                     if (npc.NPCType == NPCType.Enemy && npc.Health > 2)
                     {
                         npc.Intent = NPCIntent.Chase;

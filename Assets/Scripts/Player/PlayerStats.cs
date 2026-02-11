@@ -15,24 +15,48 @@ namespace Scripts.Player
         [SerializeField] private int maxHealth = 100;
         private int entityId;
         private int health;
-        LevelCanvas levelCanvas;
 
         private void Awake()
         {
             health = maxHealth;
             entityId = gameObject.GetComponent<PlayerEntity>().EntityId;
-            
-            DamageRouter.Instance?.Register(EntityId, ApplyDamage);
-            
+
+            HealthSystem.Instance.Register(EntityId, maxHealth);
+            DamageRouter.Instance?.Register(EntityId, HealthSystem.Instance.ApplyDamage);
+
             UpdateUI();
         }
-                      
-
-        public void ApplyDamage(int entityId, int damage)
+        private void OnEnable()
         {
-            health -= damage;
-            UpdateUI();
-            if (health <= 0)
+            if (HealthSystem.Instance != null)
+            {
+                HealthSystem.Instance.OnHealthChanged += HealthChanged;
+                HealthSystem.Instance.OnEntityDied += EntityDied;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (HealthSystem.Instance != null)
+            {
+                HealthSystem.Instance.OnHealthChanged -= HealthChanged;
+                HealthSystem.Instance.OnEntityDied -= EntityDied;
+            }
+        }
+
+        public void HealthChanged(int nEntityId, int currentHealth)
+        {
+            if (nEntityId == entityId)
+            {
+                health = currentHealth;
+                UpdateUI();
+            }
+            
+        }
+
+        public void EntityDied(int deadEntityId)
+        {
+            if (deadEntityId == entityId)
             {
                 GameStateSystem.Instance.TriggerDefeat();
             }

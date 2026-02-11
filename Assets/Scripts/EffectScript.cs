@@ -17,10 +17,7 @@ public class EffectScript : MonoBehaviour
 {
     [SerializeField] private Effect thisEffect;
 
-    void Start()
-    {
-    }
-
+    
     public virtual Effect GetEffect()
     {
         return thisEffect;

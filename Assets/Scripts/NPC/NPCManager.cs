@@ -12,6 +12,8 @@ namespace Scripts.NPC
 
         // Entity ↔ GameObject mapping
         private readonly Dictionary<int, GameObject> entities = new();
+        // Entity ↔ npcData mapping
+        private readonly Dictionary<int, NPCData> entityData = new();
 
         private void Awake()
         {
@@ -28,22 +30,31 @@ namespace Scripts.NPC
 
         private void Start()
         {
-            HealthSystem.Instance.OnEntityDied += OnEntityDied;
+            if (HealthSystem.Instance != null)
+            {
+                HealthSystem.Instance.OnEntityDied += OnEntityDied;
+                HealthSystem.Instance.OnHealthChanged += OnHealthChanged;
+            }
+            
         }
 
         private void OnDestroy()
         {
             if (HealthSystem.Instance != null)
+            {
                 HealthSystem.Instance.OnEntityDied -= OnEntityDied;
+                HealthSystem.Instance.OnHealthChanged -= OnHealthChanged;
+            }
         }
 
         public void RegisterNPC(int entityId, GameObject go, NPCData data, Rigidbody rb)
         {
             entities.Add(entityId, go);
+            entityData.Add(entityId, data);
 
             BehaviorSystem.Instance?.Register(entityId, data);
             MovementSystem.Instance?.Register(entityId, data, rb);
-            HealthSystem.Instance?.Register(entityId, data);
+            HealthSystem.Instance?.Register(entityId, data.Health);
 
             DamageRouter.Instance.Register( entityId, HealthSystem.Instance.ApplyDamage );
 
@@ -59,9 +70,22 @@ namespace Scripts.NPC
             HealthSystem.Instance?.Unregister(entityId);
             DamageRouter.Instance?.Unregister(entityId);
 
-            entities.Remove(entityId);
+            entityData.Remove(entityId);
+            entities.Remove(entityId);            
             Destroy(go);
         }
+
+        // only updating here for now. Later I may have behavior check the healthSystem instead
+        private void OnHealthChanged(int entityId, int entityHealth)
+        {
+            
+            if (!entityData.TryGetValue(entityId, out var npcData))
+                return;
+            // somehow update npcHealth here? Seems a waste to add an extra dictionary.
+            npcData.Health = entityHealth;
+        }
+
+
     }
 }
 
